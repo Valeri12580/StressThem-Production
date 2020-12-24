@@ -46,8 +46,7 @@ public class Plan extends BaseEntity {
     @Column
     @NotNull
     @PositiveOrZero
-    private int servers;
-
+    private int concurrent;
 
 
     @Column
@@ -60,14 +59,14 @@ public class Plan extends BaseEntity {
     @JoinColumn(name = "creator_id",referencedColumnName = "id")
     private User author;
 
-    public Plan(@NotNull String type, @Positive @NotNull BigDecimal price, @NotNull @Positive int durationInDays, @NotNull @Positive double maxBootTimeInSeconds, @NotNull @Positive int maxBootsPerDay, @NotNull @PositiveOrZero int servers, LocalDateTime createdOn
+    public Plan(@NotNull String type, @Positive @NotNull BigDecimal price, @NotNull @Positive int durationInDays, @NotNull @Positive double maxBootTimeInSeconds, @NotNull @Positive int maxBootsPerDay, @NotNull @PositiveOrZero int concurrent, LocalDateTime createdOn
     ,String token) {
         this.type = type;
         this.price = price;
         this.durationInDays = durationInDays;
         this.maxBootTimeInSeconds = maxBootTimeInSeconds;
         this.maxBootsPerDay = maxBootsPerDay;
-        this.servers = servers;
+        this.concurrent = concurrent;
         this.createdOn=createdOn;
         this.token=token;
     }

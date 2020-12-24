@@ -4,7 +4,7 @@ import com.stressthem.app.domain.entities.Plan;
 import com.stressthem.app.domain.entities.User;
 import com.stressthem.app.repositories.PlanRepository;
 import com.stressthem.app.repositories.UserRepository;
-import com.stressthem.app.services.interfaces.UserService;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

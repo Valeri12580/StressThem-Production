@@ -34,10 +34,6 @@ public class Attack extends BaseEntity {
 
     @Column
     @NotNull
-    private int servers;
-
-    @Column
-    @NotNull
     private LocalDateTime expiresOn;
 
 

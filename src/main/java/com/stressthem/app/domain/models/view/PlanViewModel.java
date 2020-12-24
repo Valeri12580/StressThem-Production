@@ -23,5 +23,5 @@ public class PlanViewModel {
 
     private int maxBootsPerDay;
 
-    private int servers;
+    private int concurrent;
 }

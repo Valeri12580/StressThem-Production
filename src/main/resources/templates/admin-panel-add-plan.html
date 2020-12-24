@@ -23,32 +23,46 @@
                         <form th:object="${plan}" th:method="post" th:action="@{/admin/add-plan}"
                               style="background-color: rgb(252,250,250);">
                             <h2 class="text-center">Add plan</h2>
-                            <div class="form-group"><input th:field="*{type}" class="form-control" type="text" name="type"
-                                                           placeholder="Type of the plan(vip,diamond..)"
+                            <div class="form-group">
+                                <label for="type">Name of the plan</label>
+                                <input th:field="*{type}" id="type" class="form-control" type="text" name="type"
+                                                           placeholder="Name of the plan(vip,diamond..)"
                                                            required="">
                                 <small th:if="${#fields.hasErrors('type')}"  th:errors="*{type}" class="form-text text-danger"></small>
                             </div>
 
-                            <div class="form-group"><input th:field="*{durationInDays}" class="form-control" type="number" name="duration"
+                            <div class="form-group">
+                                <label for="duration">Duration of the plan(days)</label>
+                                <input th:field="*{durationInDays}" id="duration" class="form-control" type="number" name="duration"
                                                            placeholder="Duration of the plan(in days)"
                                                            required="">
                                 <small th:if="${#fields.hasErrors('durationInDays')}"  th:errors="*{durationInDays}" class="form-text text-danger"></small>
                             </div>
-                            <div class="form-group"><input th:field="*{maxBootTimeInSeconds}" class="form-control" type="number" name="maxBootTime"
+                            <div class="form-group">
+                                <label for="maxBootTime">Max boot time in seconds</label>
+                                <input th:field="*{maxBootTimeInSeconds}" id="maxBootTime" class="form-control" type="number" name="maxBootTime"
                                                            placeholder="Maximum Boot Time" required="">
                                 <small th:if="${#fields.hasErrors('maxBootTimeInSeconds')}"  th:errors="*{maxBootTimeInSeconds}" class="form-text text-danger"></small>
                             </div>
-                            <div class="form-group"><input th:field="*{maxBootsPerDay}" class="form-control" type="number" name="maxBootsPerDay"
+                            <div class="form-group">
+                                <label for="maxBootsPerDay">Max boots per day</label>
+                                <input th:field="*{maxBootsPerDay}" id="maxBootsPerDay" class="form-control" type="number" name="maxBootsPerDay"
                                                            placeholder="Maximum Boots Per Day" required="">
                                 <small th:if="${#fields.hasErrors('maxBootsPerDay')}"  th:errors="*{maxBootsPerDay}" class="form-text text-danger"></small>
                             </div>
-                            <div class="form-group"><input th:field="*{servers}" class="form-control" type="number" name="maxConcurrent"
-                                                           placeholder="Concurrent attacks" required="">
-                                <small th:if="${#fields.hasErrors('servers')}"  th:errors="*{servers}" class="form-text text-danger"></small>
-                            </div>
-                            <div class="form-group"><input th:field="*{price}" class="form-control" type="number" name="price"
+
+                            <div class="form-group">
+                                <label for="price">Price of the plan</label>
+                                <input th:field="*{price}" id="price" class="form-control" type="number" name="price"
                                                            placeholder="Price of the plan" required="">
                                 <small th:if="${#fields.hasErrors('price')}"  th:errors="*{price}" class="form-text text-danger"></small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="concurrent">Concurrent attacks</label>
+                                <input th:field="*{concurrent}" id="concurrent" class="form-control" type="number" name="price"
+                                       placeholder="Price of the plan" required="">
+                                <small th:if="${#fields.hasErrors('concurrent')}"  th:errors="*{concurrent}" class="form-text text-danger"></small>
                             </div>
                             <div class="form-group text-center">
                                 <button class="btn btn-primary rounded-pill" type="submit">Add</button>

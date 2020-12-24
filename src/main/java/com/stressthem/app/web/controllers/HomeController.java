@@ -92,7 +92,7 @@ public class HomeController {
         } else {
 
             try{
-                this.attackService.validateAttack(attackBindingModel.getTime(), attackBindingModel.getServers(), principal.getName());
+                this.attackService.validateAttack(attackBindingModel.getTime(),  principal.getName());
             }catch (IllegalArgumentException ex){
                 result.reject("global",ex.getMessage());
             }

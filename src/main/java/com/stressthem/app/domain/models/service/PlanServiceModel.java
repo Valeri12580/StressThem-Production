@@ -31,7 +31,7 @@ public class PlanServiceModel extends BaseServiceModel {
     private LocalDateTime createdOn;
 
     @NonNull
-    private int servers;
+    private int concurrent;
 
     @NotNull
     private UserServiceModel author;

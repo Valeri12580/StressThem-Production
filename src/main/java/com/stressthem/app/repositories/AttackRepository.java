@@ -8,15 +8,20 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface AttackRepository extends JpaRepository<Attack,String> {
+public interface AttackRepository extends JpaRepository<Attack, String> {
 
-    List<Attack>findAllByAttacker_Username(String username);
+    List<Attack> findAllByAttacker_Username(String username);
 
     @Modifying
     @Transactional
     @Query("DELETE FROM Attack a where a.attacker.id=:id")
     void deleteAllAttacksForUser(@Param("id") String id);
+
+
+
+
 }

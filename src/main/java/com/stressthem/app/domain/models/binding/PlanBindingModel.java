@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 public class PlanBindingModel {
-    @Size(min = 1,max = 15,message = "The size must be between 1 and 15 characters")
+    @Size(min = 1, max = 15, message = "The size must be between 1 and 15 characters")
     private String type;
 
     @PositiveOrZero(message = "The price must be >=0")
@@ -28,6 +28,6 @@ public class PlanBindingModel {
     @Positive(message = "The max boot per day  must be positive")
     private int maxBootsPerDay;
 
-    @Positive(message = "The Servers must be positive")
-    private int servers;
+    @Positive(message = "Must be positive")
+    private int concurrent;
 }

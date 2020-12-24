@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AttackServiceImpl implements AttackService {
@@ -85,22 +86,27 @@ public class AttackServiceImpl implements AttackService {
     }
 
     @Override
-    public void validateAttack(int time, int servers, String username) {
+    public void validateAttack(int time,String username) {
         StringBuilder errorMessages = new StringBuilder();
 
         UserActivePlan userActivePlan = this.userService.getUserByUsername(username).getUserActivePlan();
 
         double includedMaxBootTimeInPlan = userActivePlan.getPlan().getMaxBootTimeInSeconds();
-        int includedMaxServersInPlan = userActivePlan.getPlan().getServers();
+
+        int includedMaxConcurrentAttacks = userActivePlan.getPlan().getConcurrent();
+
+        List<Attack>userActiveAttacksAtCurrentTime=this.attackRepository.findAllByAttacker_Username(username)
+                .stream().filter(e->e.getExpiresOn().isAfter(LocalDateTime.now())).
+                        collect(Collectors.toList());
 
         if (time > includedMaxBootTimeInPlan) {
             errorMessages.append(String.format("The maximum time included in your plan is: %.0f seconds\n", includedMaxBootTimeInPlan));
 
         }
 
-        if (servers > includedMaxServersInPlan) {
+        if (userActiveAttacksAtCurrentTime.size() >= includedMaxConcurrentAttacks) {
             errorMessages.append(
-                    String.format("The maximum included servers in your plan is: %d\n", includedMaxServersInPlan));
+                    String.format("The maximum included concurrent attacks in your plan is: %d\n", includedMaxConcurrentAttacks));
         }
 
         if (userActivePlan.getLeftAttacksForTheDay() <= 0) {

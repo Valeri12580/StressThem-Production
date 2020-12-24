@@ -27,6 +27,4 @@ public class AttackBindingModel {
     @Positive(message = "The time must be >0")
     private int time;
 
-    @Min(value = 1, message = "The minimum value is 1")
-    int servers;
 }
