@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.*;
 
 @Getter
 @Setter
@@ -16,6 +13,7 @@ import javax.validation.constraints.Positive;
 public class AttackBindingModel {
 
     //@Pattern(regexp = "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$", message = "The host is not valid!")
+    @NotEmpty(message = "Must not be empty")
     private String host;
 
     @Min(value = 0, message = "The minimum value is 0")

@@ -1,10 +1,7 @@
 package com.stressthem.app.web.controllers;
 
 import com.stressthem.app.domain.entities.Role;
-import com.stressthem.app.domain.models.binding.AnnouncementBindingModel;
-import com.stressthem.app.domain.models.binding.ArticleBindingModel;
-import com.stressthem.app.domain.models.binding.CryptocurrencyBindingModel;
-import com.stressthem.app.domain.models.binding.PlanBindingModel;
+import com.stressthem.app.domain.models.binding.*;
 import com.stressthem.app.domain.models.service.*;
 import com.stressthem.app.exceptions.ChangeRoleException;
 import com.stressthem.app.exceptions.UserDeletionException;
@@ -151,12 +148,12 @@ public class AdminPanelController {
     @PostMapping("/add-cryptocurrency")
     public String postAddCryptocurrency(@Valid @ModelAttribute CryptocurrencyBindingModel cryptocurrencyBindingModel, BindingResult bindingResult,
                                         RedirectAttributes redirectAttributes, Principal principal) {
-        if(bindingResult.hasErrors()){
-            redirectAttributes.addFlashAttribute("cryptocurrency",cryptocurrencyBindingModel);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.cryptocurrency",bindingResult);
-        }else{
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("cryptocurrency", cryptocurrencyBindingModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.cryptocurrency", bindingResult);
+        } else {
             this.cryptocurrencyService.registerCryptocurrency(this.modelMapper.map(cryptocurrencyBindingModel, CryptocurrencyServiceModel.class)
-                    ,principal.getName());
+                    , principal.getName());
         }
 
         return "redirect:/admin/add-cryptocurrency";
@@ -164,9 +161,9 @@ public class AdminPanelController {
 
     @PageTitle("Add plan")
     @GetMapping("/add-plan")
-    public String addPlan(Model model){
-        if(!model.containsAttribute("plan")){
-            model.addAttribute("plan",new PlanBindingModel());
+    public String addPlan(Model model) {
+        if (!model.containsAttribute("plan")) {
+            model.addAttribute("plan", new PlanBindingModel());
         }
 
 
@@ -175,18 +172,44 @@ public class AdminPanelController {
 
 
     @PostMapping("/add-plan")
-    public String postAddPlan(@Valid @ModelAttribute PlanBindingModel planBindingModel,BindingResult result,RedirectAttributes redirectAttributes,
-                              Principal principal){
+    public String postAddPlan(@Valid @ModelAttribute PlanBindingModel planBindingModel, BindingResult result, RedirectAttributes redirectAttributes,
+                              Principal principal) {
 
-        if(result.hasErrors()){
-            redirectAttributes.addFlashAttribute("plan",planBindingModel);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.plan",result);
-        }else{
+        if (result.hasErrors()) {
+            redirectAttributes.addFlashAttribute("plan", planBindingModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.plan", result);
+        } else {
             this.planService.register(this.modelMapper.map(planBindingModel,
-                    PlanServiceModel.class),principal.getName());
+                    PlanServiceModel.class), principal.getName());
         }
 
         return "redirect:/admin/add-plan";
+    }
+
+    @GetMapping("/add-payment-code")
+    public String addPaymentCode(Model model) {
+        if (!model.containsAttribute("paymentCode")) {
+            model.addAttribute("paymentCode", new PaymentCodeBindingModel());
+        }
+
+
+        return "admin-panel-add-payment-code";
+    }
+
+
+    @PostMapping("/add-payment-code")
+    public String postAddPaymentCode(@Valid @ModelAttribute PaymentCodeBindingModel paymentCodeBindingModel,BindingResult bindingResult,RedirectAttributes redirectAttributes){
+        if(bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("paymentCode",paymentCodeBindingModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.paymentCode",bindingResult);
+
+        }
+
+
+        return  "redirect:/admin/add-payment-code";
+
+
+
     }
 
 
