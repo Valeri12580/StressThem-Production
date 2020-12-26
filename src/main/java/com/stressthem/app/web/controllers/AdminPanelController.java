@@ -199,14 +199,14 @@ public class AdminPanelController {
 
     @PostMapping("/add-payment-code")
     public String postAddPaymentCode(@Valid @ModelAttribute PaymentCodeBindingModel paymentCodeBindingModel,BindingResult bindingResult,RedirectAttributes redirectAttributes){
+
         if(bindingResult.hasErrors()){
             redirectAttributes.addFlashAttribute("paymentCode",paymentCodeBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.paymentCode",bindingResult);
 
         }
-
-
         return  "redirect:/admin/add-payment-code";
+
 
 
 
