@@ -31,9 +31,10 @@ public class AdminPanelController {
     private final ArticleService articleService;
     private final CryptocurrencyService cryptocurrencyService;
     private final PlanService planService;
+    private final PaymentService paymentService;
 
     @Autowired
-    public AdminPanelController(UserService userService, RoleService roleService, AnnouncementService announcementService, ModelMapper modelMapper, ArticleService articleService, CryptocurrencyService cryptocurrencyService, PlanService planService) {
+    public AdminPanelController(UserService userService, RoleService roleService, AnnouncementService announcementService, ModelMapper modelMapper, ArticleService articleService, CryptocurrencyService cryptocurrencyService, PlanService planService, PaymentService paymentService) {
         this.userService = userService;
         this.roleService = roleService;
         this.announcementService = announcementService;
@@ -41,6 +42,7 @@ public class AdminPanelController {
         this.articleService = articleService;
         this.cryptocurrencyService = cryptocurrencyService;
         this.planService = planService;
+        this.paymentService = paymentService;
     }
 
     @PageTitle("Change roles")
