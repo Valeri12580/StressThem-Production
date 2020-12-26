@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.persistence.EntityExistsException;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.stream.Collectors;
@@ -200,7 +201,13 @@ public class AdminPanelController {
 
 
     @PostMapping("/add-payment-code")
-    public String postAddPaymentCode(@Valid @ModelAttribute PaymentCodeBindingModel paymentCodeBindingModel,BindingResult bindingResult,RedirectAttributes redirectAttributes){
+    public String postAddPaymentCode(@Valid @ModelAttribute PaymentCodeBindingModel paymentCodeBindingModel,BindingResult bindingResult,RedirectAttributes redirectAttributes,Principal principal){
+
+        try{
+            this.paymentService.saveCode(paymentCodeBindingModel.getCode(),principal.getName());
+        }catch (EntityExistsException ex){
+            redirectAttributes.addFlashAttribute("existError",ex.getMessage());
+        }
 
         if(bindingResult.hasErrors()){
             redirectAttributes.addFlashAttribute("paymentCode",paymentCodeBindingModel);
