@@ -14,5 +14,7 @@ public interface PlanService {
 
     void deletePlanById(String id);
 
+    PlanServiceModel findPlanByType(String type);
+
 
 }

@@ -14,4 +14,7 @@ public class PaymentCodeBindingModel {
 
     @NotEmpty(message = "The code cant be empty")
     private String code;
+
+    @NotEmpty
+    private String planName;
 }

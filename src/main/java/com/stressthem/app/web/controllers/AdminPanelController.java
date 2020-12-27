@@ -1,5 +1,6 @@
 package com.stressthem.app.web.controllers;
 
+import com.stressthem.app.domain.entities.Plan;
 import com.stressthem.app.domain.entities.Role;
 import com.stressthem.app.domain.models.binding.*;
 import com.stressthem.app.domain.models.service.*;
@@ -20,6 +21,7 @@ import javax.persistence.EntityExistsException;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.stream.Collectors;
+import java.util.*;
 
 @Controller
 @RequestMapping("/admin")
@@ -191,6 +193,9 @@ public class AdminPanelController {
 
     @GetMapping("/add-payment-code")
     public String addPaymentCode(Model model) {
+        List<String>plans=this.planService.getAllPlans().stream().map(PlanServiceModel::getType).collect(Collectors.toList());
+
+        model.addAttribute("plans",plans);
         if (!model.containsAttribute("paymentCode")) {
             model.addAttribute("paymentCode", new PaymentCodeBindingModel());
         }
@@ -203,17 +208,19 @@ public class AdminPanelController {
     @PostMapping("/add-payment-code")
     public String postAddPaymentCode(@Valid @ModelAttribute PaymentCodeBindingModel paymentCodeBindingModel,BindingResult bindingResult,RedirectAttributes redirectAttributes,Principal principal){
 
-        try{
-            this.paymentService.saveCode(paymentCodeBindingModel.getCode(),principal.getName());
-        }catch (EntityExistsException ex){
-            redirectAttributes.addFlashAttribute("existError",ex.getMessage());
-        }
-
         if(bindingResult.hasErrors()){
             redirectAttributes.addFlashAttribute("paymentCode",paymentCodeBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.paymentCode",bindingResult);
 
         }
+
+        try{
+            this.paymentService.saveCode(paymentCodeBindingModel.getCode(),paymentCodeBindingModel.getPlanName(),principal.getName());
+        }catch (EntityExistsException ex){
+            redirectAttributes.addFlashAttribute("existError",ex.getMessage());
+        }
+
+
         return  "redirect:/admin/add-payment-code";
 
 

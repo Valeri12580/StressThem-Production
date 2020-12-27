@@ -1,7 +1,6 @@
 package com.stressthem.app.services;
 
 import com.stressthem.app.domain.entities.Plan;
-import com.stressthem.app.domain.entities.User;
 import com.stressthem.app.domain.models.service.PlanServiceModel;
 import com.stressthem.app.domain.models.service.UserServiceModel;
 import com.stressthem.app.exceptions.PlanNotFoundException;
@@ -33,19 +32,19 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
-    public PlanServiceModel register(PlanServiceModel planServiceModel,String username) {
+    public PlanServiceModel register(PlanServiceModel planServiceModel, String username) {
 
-        UserServiceModel author=this.userService.getUserByUsername(username);
+        UserServiceModel author = this.userService.getUserByUsername(username);
 
         planServiceModel.setAuthor(author);
 
-        Plan plan=this.modelMapper.map(planServiceModel,Plan.class);
+        Plan plan = this.modelMapper.map(planServiceModel, Plan.class);
 
         plan.setCreatedOn(LocalDateTime.now(ZoneId.systemDefault()));
 
         planRepository.save(plan);
 
-        return this.modelMapper.map(plan,PlanServiceModel.class);
+        return this.modelMapper.map(plan, PlanServiceModel.class);
     }
 
     @Override
@@ -58,12 +57,19 @@ public class PlanServiceImpl implements PlanService {
     @Override
     public PlanServiceModel getPlanById(String id) {
         return this.modelMapper.map(this.planRepository.findById(id)
-                .orElseThrow(()->new PlanNotFoundException("The plan is not available")),PlanServiceModel.class);
+                .orElseThrow(() -> new PlanNotFoundException("The plan is not available")), PlanServiceModel.class);
     }
 
     @Override
     public void deletePlanById(String id) {
         this.planRepository.deleteById(id);
+    }
+
+    @Override
+    public PlanServiceModel findPlanByType(String type) {
+        Plan plan = planRepository.findByType(type).orElseThrow(() -> new PlanNotFoundException("The plan doesnt exist!"));
+
+        return this.modelMapper.map(plan,PlanServiceModel.class);
     }
 
 

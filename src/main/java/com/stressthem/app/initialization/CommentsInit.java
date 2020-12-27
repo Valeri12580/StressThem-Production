@@ -3,6 +3,7 @@ package com.stressthem.app.initialization;
 import com.stressthem.app.domain.entities.Comment;
 import com.stressthem.app.repositories.CommentRepository;
 import com.stressthem.app.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,7 @@ public class CommentsInit implements CommandLineRunner {
     private UserRepository userRepository;
     private CommentRepository commentRepository;
 
+    @Autowired
     public CommentsInit(UserRepository userRepository, CommentRepository commentRepository) {
         this.userRepository = userRepository;
         this.commentRepository = commentRepository;
