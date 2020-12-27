@@ -1,6 +1,7 @@
 package com.stressthem.app.services;
 
 import com.stressthem.app.domain.entities.*;
+import com.stressthem.app.domain.models.service.PaymentCodeServiceModel;
 import com.stressthem.app.domain.models.service.TransactionServiceModel;
 import com.stressthem.app.domain.models.service.UserServiceModel;
 import com.stressthem.app.exceptions.*;
@@ -32,9 +33,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private PasswordEncoder passwordEncoder;
     private UserActivePlanService userActivePlanService;
     private ConfirmationService confirmationService;
+    private PaymentService paymentService;
 
     @Autowired
-    public UserServiceImpl(RoleService roleService, @Lazy PlanService planService, UserRepository userRepository, TransactionService transactionService, CryptocurrencyService cryptocurrencyService, ModelMapper modelMapper, PasswordEncoder passwordEncoder, UserActivePlanService userActivePlanService, ConfirmationService confirmationService) {
+    public UserServiceImpl(RoleService roleService, @Lazy PlanService planService, UserRepository userRepository, TransactionService transactionService, CryptocurrencyService cryptocurrencyService, ModelMapper modelMapper, PasswordEncoder passwordEncoder, UserActivePlanService userActivePlanService, ConfirmationService confirmationService, PaymentService paymentService) {
         this.roleService = roleService;
         this.planService = planService;
         this.userRepository = userRepository;
@@ -44,6 +46,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.passwordEncoder = passwordEncoder;
         this.userActivePlanService = userActivePlanService;
         this.confirmationService = confirmationService;
+        this.paymentService = paymentService;
     }
 
     @Override
@@ -89,18 +92,22 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserServiceModel purchasePlan(String id, String username, String cryptocurrency) {
+    public UserServiceModel purchasePlan(String id, String username, String paymentCode) {
 
         User user = userRepository.findUserByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         Plan plan = this.modelMapper.map(this.planService.getPlanById(id), Plan.class);
 
-        Cryptocurrency chosenCryptocurrency = this.modelMapper
-                .map(this.cryptocurrencyService.getCryptocurrencyByName(cryptocurrency), Cryptocurrency.class);
+        PaymentCodeServiceModel paymentCodeServiceModel=this.paymentService.findPaymentCode(paymentCode);
+
+
 
         if (user.getUserActivePlan() != null) {
             throw new UserPlanActivationException("You have already activate plan!");
+        }
+        if(paymentCodeServiceModel==null){
+            throw new PaymentCodeNotFound("The code is not valid");
         }
 
         UserActivePlan userActivePlan = new UserActivePlan(plan, plan.getDurationInDays(), plan.getMaxBootsPerDay(),
@@ -108,7 +115,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userActivePlan.setUser(user);
 
         this.userActivePlanService.saveActivatedPlan(userActivePlan);
-        this.transactionService.saveTransaction(new TransactionServiceModel(user, plan, chosenCryptocurrency, LocalDateTime.now(ZoneId.systemDefault())));
+        this.transactionService.saveTransaction(new TransactionServiceModel(user, plan, paymentCodeServiceModel, LocalDateTime.now(ZoneId.systemDefault())));
         return this.modelMapper.map(user, UserServiceModel.class);
 
     }

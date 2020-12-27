@@ -15,7 +15,7 @@ public interface UserService {
     long getUsersCount();
     boolean hasUserActivePlan(String username);
 
-    UserServiceModel purchasePlan(String id,String username,String cryptocurrency);
+    UserServiceModel purchasePlan(String id,String username,String paymentCode);
 
     int getUserAvailableAttacks(String username);
 

@@ -24,4 +24,6 @@ public class PlanViewModel {
     private int maxBootsPerDay;
 
     private int concurrent;
+
+    private String paymentLink;
 }

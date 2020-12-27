@@ -19,6 +19,6 @@ public class TransactionServiceModel  extends BaseServiceModel{
 
     private User user;
     private Plan plan;
-    private Cryptocurrency paymentMethod;
+    private PaymentCodeServiceModel paymentCode;
     private LocalDateTime createdOn;
 }

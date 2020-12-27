@@ -55,6 +55,9 @@ public class Plan extends BaseEntity {
     @Column
     private String token;
 
+    @Column
+    private String paymentLink;
+
 
     @OneToMany(mappedBy = "plan",cascade = CascadeType.REMOVE)
     private List<PaymentCode> paymentCodes;
@@ -64,7 +67,7 @@ public class Plan extends BaseEntity {
     private User author;
 
     public Plan(@NotNull String type, @Positive @NotNull BigDecimal price, @NotNull @Positive int durationInDays, @NotNull @Positive double maxBootTimeInSeconds, @NotNull @Positive int maxBootsPerDay, @NotNull @PositiveOrZero int concurrent, LocalDateTime createdOn
-            , String token) {
+            , String token,String paymentLink) {
         this.type = type;
         this.price = price;
         this.durationInDays = durationInDays;
@@ -73,5 +76,6 @@ public class Plan extends BaseEntity {
         this.concurrent = concurrent;
         this.createdOn = createdOn;
         this.token = token;
+        this.paymentLink=paymentLink;
     }
 }

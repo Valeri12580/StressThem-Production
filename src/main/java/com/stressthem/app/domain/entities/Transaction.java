@@ -29,9 +29,9 @@ public class Transaction extends BaseEntity {
 
 
     @NotNull
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "payment_method_id",referencedColumnName = "id")
-    private Cryptocurrency paymentMethod;
+    private PaymentCode paymentCode;
 
     @NotNull
     @Column

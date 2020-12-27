@@ -9,6 +9,11 @@ VANTA.NET({
 })
 
 
+$("#paymentButton").click(function (){
+    $("#paymentCodeDiv").show();
+})
+
+
 $("#sendVerificationCodeBtn").click(function () {
     fetch("http://localhost:8080/users/profile/verification")
         .then(r => {

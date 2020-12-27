@@ -2,6 +2,7 @@ package com.stressthem.app.web.controllers;
 
 import com.stressthem.app.domain.models.service.CryptocurrencyServiceModel;
 import com.stressthem.app.domain.models.view.PlanViewModel;
+import com.stressthem.app.exceptions.PaymentCodeNotFound;
 import com.stressthem.app.exceptions.UserPlanActivationException;
 import com.stressthem.app.services.interfaces.CryptocurrencyService;
 import com.stressthem.app.services.interfaces.PlanService;
@@ -25,7 +26,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/plans")
-public class PlanController {
+public class  PlanController {
     private ModelMapper modelMapper;
     private PlanService planService;
     private UserService userService;
@@ -54,20 +55,18 @@ public class PlanController {
     @GetMapping("/confirm/{id}")
     @PreAuthorize("isAuthenticated()")
     public String confirm(@PathVariable("id") String id, Model model) {
-        model.addAttribute("plan", this.planService.getPlanById(id));
-        model.addAttribute("crypto", this.cryptocurrencyService.getAllCryptocurrencies().stream()
-                .map(CryptocurrencyServiceModel::getTitle).collect(Collectors.toList()));
+        model.addAttribute("plan", this.modelMapper.map(this.planService.getPlanById(id),PlanViewModel.class));
         model.addAttribute("id", id);
         return "confirm-order";
 
     }
 
     @PostMapping("/confirm/{id}")
-    public String postConfirm(@PathVariable("id") String id, @PathParam("cryptocurrency") String cryptocurrency, Principal principal
+    public String postConfirm(@PathVariable("id") String id, @PathParam("paymentCode") String paymentCode, Principal principal
             , RedirectAttributes redirectAttributes) {
         try {
-            this.userService.purchasePlan(id, principal.getName(), cryptocurrency);
-        } catch (UserPlanActivationException ex) {
+            this.userService.purchasePlan(id, principal.getName(), paymentCode);
+        } catch (UserPlanActivationException  | PaymentCodeNotFound ex) {
             redirectAttributes.addFlashAttribute("activationError", ex.getMessage());
 
             return String.format("redirect:/plans/confirm/%s", id);

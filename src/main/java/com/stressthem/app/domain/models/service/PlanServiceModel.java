@@ -5,6 +5,7 @@ import lombok.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import  java.util.*;
 
 @Getter
 @Setter
@@ -32,6 +33,10 @@ public class PlanServiceModel extends BaseServiceModel {
 
     @NonNull
     private int concurrent;
+
+    private String paymentLink;
+
+    private List<PaymentCodeServiceModel> paymentCodes;
 
     @NotNull
     private UserServiceModel author;
