@@ -17,5 +17,7 @@ public class PaymentCodeServiceModel extends BaseServiceModel {
 
     private UserServiceModel author;
 
+    private boolean isUsed;
+
 
 }

@@ -146,41 +146,41 @@ public class UserServiceTest {
 
     }
 
-    @Test
-    public void purchasePlanShouldThrowExceptionIfUserAlreadyHavePlan() {
+//    @Test
+//    public void purchasePlanShouldThrowExceptionIfUserAlreadyHavePlan() {
+//
+//        Mockito.when(userRepository.findUserByUsername("valeri")).thenReturn(Optional.of(user));
+//
+//        Mockito.when(planService.getPlanById("1")).thenReturn(new PlanServiceModel());
+//
+//        Mockito.when(cryptocurrencyService.getCryptocurrencyByName("bitcoin")).thenReturn(new CryptocurrencyServiceModel());
+//
+//        Mockito.when(modelMapper.map(planService.getPlanById("1"), Plan.class)).thenReturn(new Plan());
+//        Mockito.when(modelMapper.map(cryptocurrencyService.getCryptocurrencyByName("bitcoin"), Cryptocurrency.class)).thenReturn(new Cryptocurrency());
+//
+//        user.setUserActivePlan(new UserActivePlan(null, 15, 1, null));
+//
+//        assertThrows(UserPlanActivationException.class, () -> {
+//            userService.purchasePlan("1", "valeri", "bitcoin");
+//        });
+//    }
 
-        Mockito.when(userRepository.findUserByUsername("valeri")).thenReturn(Optional.of(user));
-
-        Mockito.when(planService.getPlanById("1")).thenReturn(new PlanServiceModel());
-
-        Mockito.when(cryptocurrencyService.getCryptocurrencyByName("bitcoin")).thenReturn(new CryptocurrencyServiceModel());
-
-        Mockito.when(modelMapper.map(planService.getPlanById("1"), Plan.class)).thenReturn(new Plan());
-        Mockito.when(modelMapper.map(cryptocurrencyService.getCryptocurrencyByName("bitcoin"), Cryptocurrency.class)).thenReturn(new Cryptocurrency());
-
-        user.setUserActivePlan(new UserActivePlan(null, 15, 1, null));
-
-        assertThrows(UserPlanActivationException.class, () -> {
-            userService.purchasePlan("1", "valeri", "bitcoin");
-        });
-    }
-
-    @Test
-    public void purchasePlanShouldWork() {
-        Mockito.when(userRepository.findUserByUsername("valeri")).thenReturn(Optional.of(user));
-        Mockito.when(planService.getPlanById("1")).thenReturn(new PlanServiceModel());
-        Mockito.when(cryptocurrencyService.getCryptocurrencyByName("bitcoin")).thenReturn(new CryptocurrencyServiceModel());
-
-        Mockito.when(modelMapper.map(planService.getPlanById("1"), Plan.class)).thenReturn(plan);
-        Mockito.when(modelMapper.map(cryptocurrencyService.getCryptocurrencyByName("bitcoin"), Cryptocurrency.class)).thenReturn(cryptocurrency);
-
-        userService.purchasePlan("1", "valeri", "bitcoin");
-
-        Mockito.verify(userActivePlanService).saveActivatedPlan(ArgumentMatchers.any());
-        Mockito.verify(transactionService).saveTransaction(ArgumentMatchers.any());
-
-
-    }
+//    @Test
+//    public void purchasePlanShouldWork() {
+//        Mockito.when(userRepository.findUserByUsername("valeri")).thenReturn(Optional.of(user));
+//        Mockito.when(planService.getPlanById("1")).thenReturn(new PlanServiceModel());
+//        Mockito.when(cryptocurrencyService.getCryptocurrencyByName("bitcoin")).thenReturn(new CryptocurrencyServiceModel());
+//
+//        Mockito.when(modelMapper.map(planService.getPlanById("1"), Plan.class)).thenReturn(plan);
+//        Mockito.when(modelMapper.map(cryptocurrencyService.getCryptocurrencyByName("bitcoin"), Cryptocurrency.class)).thenReturn(cryptocurrency);
+//
+//        userService.purchasePlan("1", "valeri", "bitcoin");
+//
+//        Mockito.verify(userActivePlanService).saveActivatedPlan(ArgumentMatchers.any());
+//        Mockito.verify(transactionService).saveTransaction(ArgumentMatchers.any());
+//
+//
+//    }
 
     @Test
     public void getUserAvailableAttacksShouldWork() {

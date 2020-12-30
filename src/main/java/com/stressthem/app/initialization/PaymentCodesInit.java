@@ -30,8 +30,8 @@ public class PaymentCodesInit implements CommandLineRunner {
     public void run(String... args) throws Exception {
         User user=this.userRepository.findUserByUsername("valeri12580").get();
         Plan plan=this.planRepository.findByType("BASIC").get();
-        PaymentCode paymentCodeOne=new PaymentCode("basictest1",plan,user);
-        PaymentCode paymentCodeTwo=new PaymentCode("basictest2",plan,user);
+        PaymentCode paymentCodeOne=new PaymentCode("basictest1",plan,user,false);
+        PaymentCode paymentCodeTwo=new PaymentCode("basictest2",plan,user,false);
         paymentCodeRepository.saveAll(List.of(paymentCodeOne,paymentCodeTwo));
     }
 }

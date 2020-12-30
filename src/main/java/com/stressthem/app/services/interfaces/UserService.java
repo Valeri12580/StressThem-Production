@@ -12,10 +12,12 @@ public interface UserService {
 
     UserServiceModel getUserByUsername(String username);
     UserServiceModel getUserByEmail(String email);
+
     long getUsersCount();
+
     boolean hasUserActivePlan(String username);
 
-    UserServiceModel purchasePlan(String id,String username,String paymentCode);
+
 
     int getUserAvailableAttacks(String username);
 

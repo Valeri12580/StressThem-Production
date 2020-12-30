@@ -1,10 +1,10 @@
 package com.stressthem.app.web.controllers;
 
-import com.stressthem.app.domain.models.service.CryptocurrencyServiceModel;
 import com.stressthem.app.domain.models.view.PlanViewModel;
 import com.stressthem.app.exceptions.PaymentCodeNotFound;
 import com.stressthem.app.exceptions.UserPlanActivationException;
 import com.stressthem.app.services.interfaces.CryptocurrencyService;
+import com.stressthem.app.services.interfaces.PaymentService;
 import com.stressthem.app.services.interfaces.PlanService;
 import com.stressthem.app.services.interfaces.UserService;
 import com.stressthem.app.web.annotations.PageTitle;
@@ -22,7 +22,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.websocket.server.PathParam;
 import java.security.Principal;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/plans")
@@ -31,13 +30,15 @@ public class  PlanController {
     private PlanService planService;
     private UserService userService;
     private CryptocurrencyService cryptocurrencyService;
+    private PaymentService paymentService;
 
     @Autowired
-    public PlanController(ModelMapper modelMapper, PlanService planService, UserService userService, CryptocurrencyService cryptocurrencyService) {
+    public PlanController(ModelMapper modelMapper, PlanService planService, UserService userService, CryptocurrencyService cryptocurrencyService, PaymentService paymentService) {
         this.modelMapper = modelMapper;
         this.planService = planService;
         this.userService = userService;
         this.cryptocurrencyService = cryptocurrencyService;
+        this.paymentService = paymentService;
     }
 
 
@@ -46,7 +47,7 @@ public class  PlanController {
     public String plans(Model model) {
         List<PlanViewModel> plans = List.of(this.modelMapper.map(this.planService.getAllPlans(), PlanViewModel[].class));
         model.addAttribute("plans", plans);
-        System.out.println();
+
 
         return "pricing";
     }
@@ -65,7 +66,7 @@ public class  PlanController {
     public String postConfirm(@PathVariable("id") String id, @PathParam("paymentCode") String paymentCode, Principal principal
             , RedirectAttributes redirectAttributes) {
         try {
-            this.userService.purchasePlan(id, principal.getName(), paymentCode);
+            this.paymentService.purchasePlan(id, principal.getName(), paymentCode);
         } catch (UserPlanActivationException  | PaymentCodeNotFound ex) {
             redirectAttributes.addFlashAttribute("activationError", ex.getMessage());
 

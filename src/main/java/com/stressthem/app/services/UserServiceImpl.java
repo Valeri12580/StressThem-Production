@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private PaymentService paymentService;
 
     @Autowired
-    public UserServiceImpl(RoleService roleService, @Lazy PlanService planService, UserRepository userRepository, TransactionService transactionService, CryptocurrencyService cryptocurrencyService, ModelMapper modelMapper, PasswordEncoder passwordEncoder, UserActivePlanService userActivePlanService, ConfirmationService confirmationService, PaymentService paymentService) {
+    public UserServiceImpl(RoleService roleService, @Lazy PlanService planService, UserRepository userRepository, TransactionService transactionService, CryptocurrencyService cryptocurrencyService, ModelMapper modelMapper, PasswordEncoder passwordEncoder, UserActivePlanService userActivePlanService, ConfirmationService confirmationService, @Lazy PaymentService paymentService) {
         this.roleService = roleService;
         this.planService = planService;
         this.userRepository = userRepository;
@@ -91,34 +91,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 .getUserActivePlan() != null;
     }
 
-    @Override
-    public UserServiceModel purchasePlan(String id, String username, String paymentCode) {
 
-        User user = userRepository.findUserByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
-        Plan plan = this.modelMapper.map(this.planService.getPlanById(id), Plan.class);
-
-        PaymentCodeServiceModel paymentCodeServiceModel=this.paymentService.findPaymentCode(paymentCode);
-
-
-
-        if (user.getUserActivePlan() != null) {
-            throw new UserPlanActivationException("You have already activate plan!");
-        }
-        if(paymentCodeServiceModel==null){
-            throw new PaymentCodeNotFound("The code is not valid");
-        }
-
-        UserActivePlan userActivePlan = new UserActivePlan(plan, plan.getDurationInDays(), plan.getMaxBootsPerDay(),
-                LocalDateTime.now(ZoneId.systemDefault()));
-        userActivePlan.setUser(user);
-
-        this.userActivePlanService.saveActivatedPlan(userActivePlan);
-        this.transactionService.saveTransaction(new TransactionServiceModel(user, plan, paymentCodeServiceModel, LocalDateTime.now(ZoneId.systemDefault())));
-        return this.modelMapper.map(user, UserServiceModel.class);
-
-    }
 
     @Override
     public int getUserAvailableAttacks(String username) {
@@ -235,10 +208,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserServiceModel getUserByUsername(String username) {
-        User user = this.userRepository.findUserByUsername(username).orElse(null);
-        if (user == null) {
-            return null;
-        }
+        User user = this.userRepository.findUserByUsername(username).orElseThrow(()->new UsernameNotFoundException("User doesnt exist"));
+
         return this.modelMapper.map(user, UserServiceModel.class);
     }
 

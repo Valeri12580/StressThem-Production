@@ -30,7 +30,7 @@ public class Transaction extends BaseEntity {
 
     @NotNull
     @OneToOne
-    @JoinColumn(name = "payment_method_id",referencedColumnName = "id")
+    @JoinColumn(name = "payment_code_id",referencedColumnName = "id")
     private PaymentCode paymentCode;
 
     @NotNull

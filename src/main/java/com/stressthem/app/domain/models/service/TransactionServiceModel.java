@@ -1,6 +1,5 @@
 package com.stressthem.app.domain.models.service;
 
-import com.stressthem.app.domain.entities.Cryptocurrency;
 import com.stressthem.app.domain.entities.Plan;
 import com.stressthem.app.domain.entities.User;
 import lombok.AllArgsConstructor;
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TransactionServiceModel  extends BaseServiceModel{
+public class TransactionServiceModel extends BaseServiceModel {
 
 
     private User user;

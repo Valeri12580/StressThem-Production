@@ -28,5 +28,8 @@ public class PaymentCode extends BaseEntity {
     @JoinColumn(name = "author_id",referencedColumnName = "id")
     private User author;
 
+    @Column
+    private boolean isUsed;
+
 
 }
