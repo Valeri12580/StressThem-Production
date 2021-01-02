@@ -1,5 +1,5 @@
 package com.stressthem.app.domain;
 
 public enum MethodType {
-    SSDP,NTP,ZUDP,UDP,NBS,SNMP,VSE,TCP,MSSQL
+    SpaceX, RandPackets, HTTPrequest, PathFinder, Mixed, FiveM, UAMBypass, CFCrasher1, CFCrasher2, HTTPstromSG, HTTPstromPG, HTTPstromMIX, httpRND
 }

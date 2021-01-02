@@ -1,10 +1,13 @@
 package com.stressthem.app.services.interfaces;
 
+import com.stressthem.app.domain.models.binding.PlanBindingModel;
 import com.stressthem.app.domain.models.service.UserServiceModel;
 
 import java.util.List;
 
 public interface UserService {
+
+    PlanBindingModel getActivePlan(String username);
 
     UserServiceModel register(UserServiceModel userServiceModel);
 

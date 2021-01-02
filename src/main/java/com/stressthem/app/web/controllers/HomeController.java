@@ -72,6 +72,7 @@ public class HomeController {
             model.addAttribute("userId", userId);
             model.addAttribute("hasRated",commentService.hasUserAlreadyCommented(authentication.getName()));
             model.addAttribute("hasTransaction",transactionService.hasUserTransactions(authentication.getName()));
+            model.addAttribute("currentPlan",userService.getActivePlan(username));
         }
 
         if (!model.containsAttribute("attack")) {

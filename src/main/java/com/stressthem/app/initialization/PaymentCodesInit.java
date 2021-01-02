@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 @Component
-@Order(4)
+@Order(value = 4)
 public class PaymentCodesInit implements CommandLineRunner {
     private PaymentCodeRepository paymentCodeRepository;
     private PlanRepository planRepository;
@@ -32,6 +32,7 @@ public class PaymentCodesInit implements CommandLineRunner {
         Plan plan=this.planRepository.findByType("BASIC").get();
         PaymentCode paymentCodeOne=new PaymentCode("basictest1",plan,user,false);
         PaymentCode paymentCodeTwo=new PaymentCode("basictest2",plan,user,false);
+
         paymentCodeRepository.saveAll(List.of(paymentCodeOne,paymentCodeTwo));
     }
 }

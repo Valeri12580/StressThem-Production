@@ -1,10 +1,14 @@
 package com.stressthem.app.services;
 
-import com.stressthem.app.domain.entities.*;
-import com.stressthem.app.domain.models.service.PaymentCodeServiceModel;
-import com.stressthem.app.domain.models.service.TransactionServiceModel;
+import com.stressthem.app.domain.entities.Role;
+import com.stressthem.app.domain.entities.User;
+import com.stressthem.app.domain.entities.UserActivePlan;
+import com.stressthem.app.domain.models.binding.PlanBindingModel;
 import com.stressthem.app.domain.models.service.UserServiceModel;
-import com.stressthem.app.exceptions.*;
+import com.stressthem.app.exceptions.ChangeRoleException;
+import com.stressthem.app.exceptions.DuplicatedEmailException;
+import com.stressthem.app.exceptions.DuplicatedUsernameException;
+import com.stressthem.app.exceptions.UserDeletionException;
 import com.stressthem.app.repositories.UserRepository;
 import com.stressthem.app.services.interfaces.*;
 import org.modelmapper.ModelMapper;
@@ -50,6 +54,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public PlanBindingModel getActivePlan(String username) {
+        UserActivePlan plan = this.userRepository.findUserByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found")
+        ).getUserActivePlan();
+        if (plan != null) {
+            return this.modelMapper.map(plan.getPlan(), PlanBindingModel.class);
+        }
+        return null;
+
+
+    }
+
+    @Override
     public UserServiceModel register(UserServiceModel userServiceModel) {
         User user = this.modelMapper.map(userServiceModel, User.class);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -92,7 +108,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
 
-
     @Override
     public int getUserAvailableAttacks(String username) {
         User user = this.userRepository.findUserByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
@@ -129,9 +144,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void sendConfirmationEmail(String username) {
-        String email=userRepository.findUserByUsername(username).orElseThrow(()->new UsernameNotFoundException("User not found")).getEmail();
+        String email = userRepository.findUserByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found")).getEmail();
 
-        String code=confirmationService.sendConfirmationEmail(email);
+        String code = confirmationService.sendConfirmationEmail(email);
 
 
     }
@@ -139,8 +154,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public boolean confirmConfirmationCode(String code, String username) {
         boolean isConfirmed = confirmationService.confirmConfirmationCode(code);
-        if( isConfirmed){
-            userRepository.findUserByUsername(username).orElseThrow(()->new UsernameNotFoundException("User not found"))
+        if (isConfirmed) {
+            userRepository.findUserByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"))
                     .setRoles(Set.of(roleService.getRoleByName("USER")));
         }
         return isConfirmed;
@@ -208,7 +223,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserServiceModel getUserByUsername(String username) {
-        User user = this.userRepository.findUserByUsername(username).orElseThrow(()->new UsernameNotFoundException("User doesnt exist"));
+        User user = this.userRepository.findUserByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User doesnt exist"));
 
         return this.modelMapper.map(user, UserServiceModel.class);
     }
