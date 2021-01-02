@@ -1,7 +1,9 @@
 package com.stressthem.app.validation;
 
+import com.stressthem.app.exceptions.EmailNotFoundException;
 import com.stressthem.app.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintValidator;
@@ -27,9 +29,23 @@ public class UniqueUserValidator implements ConstraintValidator<UniqueUser,Strin
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
+        boolean result;
        if(type.equals("email")){
-           return this.userService.getUserByEmail(value)==null;
+           try {
+               this.userService.getUserByEmail(value);
+           }catch (EmailNotFoundException ex){
+               return true;
+           }
+
+           return  false;
        }
-        return this.userService.getUserByUsername(value)==null;
+
+       try {
+           this.userService.getUserByUsername(value);
+       }catch (UsernameNotFoundException ex){
+           return true;
+       }
+
+        return false;
     }
 }

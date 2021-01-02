@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
-import java.net.http.HttpResponse;
+import java.util.Arrays;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -14,10 +14,10 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Throwable.class)
     @PageTitle("Oops...")
-    public ModelAndView handle(Throwable ex, HttpServletResponse response){
-        ModelAndView modelAndView=new ModelAndView("error");
+    public ModelAndView handle(Throwable ex, HttpServletResponse response) {
+        ModelAndView modelAndView = new ModelAndView("error");
 
-        modelAndView.addObject("message",ex.getMessage());
+        modelAndView.addObject("message", ex.getCause());
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         return modelAndView;
     }

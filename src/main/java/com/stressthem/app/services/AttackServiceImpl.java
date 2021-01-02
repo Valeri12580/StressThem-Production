@@ -43,7 +43,7 @@ public class AttackServiceImpl implements AttackService {
     public AttackServiceModel launchAttack(AttackServiceModel attackServiceModel, String username,String token) {
 
         try {
-            serverConnection.sendRequest(attackServiceModel.getHost(),attackServiceModel.getPort(),String.valueOf(15),String.valueOf(2),2,token);
+            serverConnection.sendRequest(attackServiceModel.getHost(),attackServiceModel.getPort(),attackServiceModel.getTime(),attackServiceModel.getMethod(),token);
         } catch (URISyntaxException e) {
 
             System.out.println("ERR");

@@ -71,7 +71,6 @@
                             <th>HOST</th>
                             <th>PORT</th>
                             <th>METHOD</th>
-                            <th>SERVERS</th>
                             <th>EXPIRES</th>
                             <th>STATUS</th>
                         </tr>
@@ -82,7 +81,6 @@
                             <td th:text="${attack.host}"></td>
                             <td th:text="${attack.port}"></td>
                             <td th:text="${attack.method.toString()}"></td>
-                            <td th:text="${attack.servers}"></td>
                             <td th:text="${#temporals.format(attack.expiresOn, 'dd-MM-yyyy HH:mm:ss')}"></td>
                             <td th:text="${#temporals.createNow()>attack.expiresOn ? 'Inactive':'Active'}"></td>
                         </tr>

@@ -21,10 +21,10 @@ public class AttackServiceModel extends BaseServiceModel {
 
     private MethodType method;
 
-    private int servers;
-
 
     private LocalDateTime expiresOn;
+
+    private int time;
 
 
 

@@ -1,5 +1,6 @@
 package com.stressthem.app.services;
 
+import com.stressthem.app.domain.MethodType;
 import com.stressthem.app.services.interfaces.ServerConnection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +28,7 @@ public class ServerConnectionImpl implements ServerConnection {
     }
 
     @Override
-    public void sendRequest(String targetIp, String port, String time, String method, int servers,String token) throws URISyntaxException, IOException, InterruptedException {
+    public void sendRequest(String targetIp, String port, int time, MethodType method, String token) throws URISyntaxException, IOException, InterruptedException {
         //todo token
         //v1
         String url = String.format("%s?target=%s&port=%s&time=%s&method=%s&token=%s", MACHINE_IP, targetIp
@@ -39,4 +40,6 @@ public class ServerConnectionImpl implements ServerConnection {
         httpClient.send(request, HttpResponse.BodyHandlers.discarding());
 
     }
+
+
 }

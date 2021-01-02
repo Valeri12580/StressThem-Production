@@ -5,10 +5,7 @@ import com.stressthem.app.domain.entities.User;
 import com.stressthem.app.domain.entities.UserActivePlan;
 import com.stressthem.app.domain.models.binding.PlanBindingModel;
 import com.stressthem.app.domain.models.service.UserServiceModel;
-import com.stressthem.app.exceptions.ChangeRoleException;
-import com.stressthem.app.exceptions.DuplicatedEmailException;
-import com.stressthem.app.exceptions.DuplicatedUsernameException;
-import com.stressthem.app.exceptions.UserDeletionException;
+import com.stressthem.app.exceptions.*;
 import com.stressthem.app.repositories.UserRepository;
 import com.stressthem.app.services.interfaces.*;
 import org.modelmapper.ModelMapper;
@@ -70,7 +67,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         User user = this.modelMapper.map(userServiceModel, User.class);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        user.setRoles(Set.of(this.roleService.getRoleByName("UNCONFIRMED")));
+        user.setRoles(Set.of(this.roleService.getRoleByName("USER")));
 
         user.setRegisteredOn(LocalDateTime.now(ZoneId.systemDefault()));
         this.userRepository.save(user);
@@ -86,10 +83,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserServiceModel getUserByEmail(String email) {
-        User user = this.userRepository.findUserByEmail(email).orElse(null);
-        if (user == null) {
-            return null;
-        }
+        User user = this.userRepository.findUserByEmail(email).orElseThrow(()->new EmailNotFoundException("Email not found"));
+
         return this.modelMapper.map(user, UserServiceModel.class);
     }
 

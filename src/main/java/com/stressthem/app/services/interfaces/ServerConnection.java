@@ -1,9 +1,11 @@
 package com.stressthem.app.services.interfaces;
 
+import com.stressthem.app.domain.MethodType;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 
 public interface ServerConnection {
 
-    void sendRequest(String targetIp,String targetPort,String time,String method,int servers,String token) throws URISyntaxException, IOException, InterruptedException;
+    void sendRequest(String targetIp, String targetPort, int time, MethodType method, String token) throws URISyntaxException, IOException, InterruptedException;
 }
