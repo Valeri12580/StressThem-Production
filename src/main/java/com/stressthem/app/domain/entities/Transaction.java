@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table
+@AllArgsConstructor
+
 public class Transaction extends BaseEntity {
 
     @NotNull
@@ -28,7 +30,7 @@ public class Transaction extends BaseEntity {
     private Plan plan;
 
 
-    @NotNull
+
     @OneToOne
     @JoinColumn(name = "payment_code_id",referencedColumnName = "id")
     private PaymentCode paymentCode;

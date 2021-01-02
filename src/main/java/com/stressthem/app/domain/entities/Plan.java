@@ -24,7 +24,7 @@ public class Plan extends BaseEntity {
     private String type;
 
     @Column
-    @Positive
+    @PositiveOrZero
     @NotNull
     private BigDecimal price;
 
