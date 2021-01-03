@@ -24,11 +24,13 @@ public class AnnouncementsInit implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        User user=this.userRepository.findUserByUsername("valeri12580").get();
-        Announcement announcement=new Announcement("Our services are down","Our servives are down due maintance",user,
-                LocalDateTime.now(ZoneId.systemDefault()));
+       if(announcementRepository.count()==0){
+           User user=this.userRepository.findUserByUsername("valeri12580").get();
+           Announcement announcement=new Announcement("Our services are down","Our servives are down due maintance",user,
+                   LocalDateTime.now(ZoneId.systemDefault()));
 
-        announcementRepository.save(announcement);
+           announcementRepository.save(announcement);
+       }
 
     }
 }

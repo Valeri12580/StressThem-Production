@@ -17,7 +17,9 @@ public class GlobalExceptionHandler {
     public ModelAndView handle(Throwable ex, HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView("error");
 
-        modelAndView.addObject("message", ex.getCause());
+        modelAndView.addObject("message", ex.getMessage());
+        //todo fix this
+//         ex.getCause();
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         return modelAndView;
     }

@@ -28,11 +28,13 @@ public class PaymentCodesInit implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        User user=this.userRepository.findUserByUsername("valeri12580").get();
-        Plan plan=this.planRepository.findByType("BASIC").get();
-        PaymentCode paymentCodeOne=new PaymentCode("basictest1",plan,user,false);
-        PaymentCode paymentCodeTwo=new PaymentCode("basictest2",plan,user,false);
+        if(paymentCodeRepository.count()==0){
+            User user=this.userRepository.findUserByUsername("valeri12580").get();
+            Plan plan=this.planRepository.findByType("BASIC").get();
+            PaymentCode paymentCodeOne=new PaymentCode("basictest1",plan,user,false);
+            PaymentCode paymentCodeTwo=new PaymentCode("basictest2",plan,user,false);
 
-        paymentCodeRepository.saveAll(List.of(paymentCodeOne,paymentCodeTwo));
+            paymentCodeRepository.saveAll(List.of(paymentCodeOne,paymentCodeTwo));
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.stressthem.app.services;
 
+import com.stressthem.app.domain.entities.Plan;
 import com.stressthem.app.domain.entities.Role;
 import com.stressthem.app.domain.entities.User;
 import com.stressthem.app.domain.entities.UserActivePlan;
@@ -65,13 +66,27 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserServiceModel register(UserServiceModel userServiceModel) {
         User user = this.modelMapper.map(userServiceModel, User.class);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        this.setRegistrationDetails(user);
 
-        user.setRoles(Set.of(this.roleService.getRoleByName("USER")));
-
-        user.setRegisteredOn(LocalDateTime.now(ZoneId.systemDefault()));
         this.userRepository.save(user);
+        this.purchaseFreePlan(user);
         return this.modelMapper.map(user, UserServiceModel.class);
+    }
+    private void setRegistrationDetails(User user){
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(Set.of(this.roleService.getRoleByName("USER")));
+        user.setRegisteredOn(LocalDateTime.now(ZoneId.systemDefault()));
+
+    }
+
+    private void purchaseFreePlan(User user){
+        Plan plan = this.modelMapper.map(planService.findPlanByType("FREE"), Plan.class);
+        UserActivePlan userActivePlan = new UserActivePlan(plan,user, plan.getDurationInDays(), plan.getMaxBootsPerDay(),
+                LocalDateTime.now(ZoneId.systemDefault()));
+
+
+        this.userActivePlanService.saveActivatedPlan(userActivePlan);
+
     }
 
     @Override

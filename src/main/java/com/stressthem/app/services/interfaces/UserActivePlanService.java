@@ -12,4 +12,7 @@ public interface UserActivePlanService {
     void saveActivatedPlan(UserActivePlan userActivePlan);
 
     void refreshDailyAttacks();
+
+    void removeActivePlan(String id);
+
 }

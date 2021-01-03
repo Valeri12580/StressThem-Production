@@ -34,15 +34,17 @@
                         <li th:text="|Max boots per day: ${plan.maxBootsPerDay}|"></li>
                         <li th:text="|Concurrent attacks: ${plan.concurrent}|"></li>
                     </ul>
-                    <a th:if="${plan.price eq 0}" class="btn btn-outline-primary mb-3 rounded-pill w-25" type="button"
-                       th:href="@{/users/register}">Start now</a>
-                    <a th:unless="${plan.price eq 0 }" class="btn btn-outline-primary mb-3 rounded-pill w-25" type="button"
-                       th:href="@{/plans/confirm/{id}(id=${plan.id})}">Buy</a>
-                    <a class="btn btn-primary rounded-pill w-25" type="button"
-                       style="margin-top: -15px;margin-bottom: 0px;margin-right: 0px;margin-left: 25px;"
-                       sec:authorize="hasAnyAuthority('ADMIN','ROOT')"
-                       th:href="@{/plans/delete/{id}(id=${plan.id})}">Delete
-                    </a>
+                    <div >
+                        <a sec:authorize="isAnonymous()" th:if="${(plan.price eq 0)}" class="btn btn-outline-primary mb-3 rounded-pill w-25" type="button"
+                           th:href="@{/users/register}">Start now</a>
+                        <a th:if="${#authentication.getPrincipal()}" th:unless="${plan.price eq 0 }" class="btn btn-outline-primary mb-3 rounded-pill w-25" type="button"
+                           th:href="@{/plans/confirm/{id}(id=${plan.id})}">Buy</a>
+                        <a class="btn btn-primary rounded-pill w-25" type="button"
+                           style="margin-top: -15px;margin-bottom: 0px;margin-right: 0px;margin-left: 25px;"
+                           sec:authorize="hasAnyAuthority('ADMIN','ROOT')"
+                           th:href="@{/plans/delete/{id}(id=${plan.id})}">Delete
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

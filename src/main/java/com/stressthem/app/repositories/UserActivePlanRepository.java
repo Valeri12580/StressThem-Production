@@ -26,4 +26,8 @@ public interface UserActivePlanRepository extends JpaRepository<UserActivePlan,S
     @Modifying
     @Query("update UserActivePlan uap set uap.leftAttacksForTheDay=(select p.maxBootsPerDay from Plan p where uap.plan.id=p.id)")
     void refreshDailyAttacks();
+
+    @Transactional
+    @Modifying
+    void removeById(String id);
 }

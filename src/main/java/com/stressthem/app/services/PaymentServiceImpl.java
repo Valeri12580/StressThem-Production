@@ -69,17 +69,19 @@ public class PaymentServiceImpl implements PaymentService {
 
 
 
-        if (user.getUserActivePlan() != null) {
-            throw new UserPlanActivationException("You have already activated plan!");
-        }
-        if(paymentCodeServiceModel==null || paymentCodeServiceModel.isUsed()){
+
+        if(paymentCodeServiceModel==null || paymentCodeServiceModel.isUsed() || !paymentCodeServiceModel.getPlan().getId().equals(plan.getId())){
             throw new PaymentCodeNotFound("The code is not valid");
         }
 
-        UserActivePlan userActivePlan = new UserActivePlan(plan, plan.getDurationInDays(), plan.getMaxBootsPerDay(),
-                LocalDateTime.now(ZoneId.systemDefault()));
-        userActivePlan.setUser(user);
+        if(user.getUserActivePlan()!=null){
+            this.userActivePlanService.removeActivePlan(user.getUserActivePlan().getId());
+        }
 
+        UserActivePlan userActivePlan = new UserActivePlan(plan,user, plan.getDurationInDays(), plan.getMaxBootsPerDay(),
+                LocalDateTime.now(ZoneId.systemDefault()));
+
+            //todo query did not return a unique result: 2; nested exception is javax.persistence.NonUniqueResultException: query did not return a unique result: 2
         this.userActivePlanService.saveActivatedPlan(userActivePlan);
         this.transactionService.saveTransaction(new TransactionServiceModel(user, plan, paymentCodeServiceModel , LocalDateTime.now(ZoneId.systemDefault())));
         this.changePaymentCodeStatus(paymentCode,true);

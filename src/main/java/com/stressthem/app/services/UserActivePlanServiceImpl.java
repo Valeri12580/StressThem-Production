@@ -47,4 +47,9 @@ public class UserActivePlanServiceImpl implements UserActivePlanService {
     public void refreshDailyAttacks() {
         this.userActivePlanRepository.refreshDailyAttacks();
     }
+
+    @Override
+    public void removeActivePlan(String id) {
+        this.userActivePlanRepository.removeById(id);
+    }
 }

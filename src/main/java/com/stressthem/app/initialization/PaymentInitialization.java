@@ -36,14 +36,16 @@ public class PaymentInitialization implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        User user=userRepository.findUserByUsername("valeri12580").get();
-        Plan plan=planRepository.findByType("LIFETIME").get();
-        UserActivePlan userActivePlan = new UserActivePlan(plan, plan.getDurationInDays(), plan.getMaxBootsPerDay(),
-                LocalDateTime.now());
-        userActivePlan.setUser(user);
+       if(userActivePlanRepository.count()==0){
+           User user=userRepository.findUserByUsername("valeri12580").get();
+           Plan plan=planRepository.findByType("LIFETIME").get();
+           UserActivePlan userActivePlan = new UserActivePlan(plan,user, plan.getDurationInDays(), plan.getMaxBootsPerDay(),
+                   LocalDateTime.now());
+           userActivePlan.setUser(user);
 
-        userActivePlanRepository.save(userActivePlan);
-        transactionRepository.save(new Transaction(user,plan,null,LocalDateTime.now()));
+           userActivePlanRepository.save(userActivePlan);
+           transactionRepository.save(new Transaction(user,plan,null,LocalDateTime.now()));
+       }
 
     }
 }

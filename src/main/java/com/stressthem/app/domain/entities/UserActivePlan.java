@@ -17,8 +17,9 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 public class UserActivePlan  extends BaseEntity{
-    public UserActivePlan(Plan plan, @Positive @NotNull int leftDays, @PositiveOrZero @NotNull int leftAttacksForTheDay, LocalDateTime startedOn) {
+    public UserActivePlan(Plan plan, User user,@Positive @NotNull int leftDays, @PositiveOrZero @NotNull int leftAttacksForTheDay, LocalDateTime startedOn) {
         this.plan = plan;
+        this.user=user;
         this.leftDays = leftDays;
         this.leftAttacksForTheDay = leftAttacksForTheDay;
         this.startedOn = startedOn;
