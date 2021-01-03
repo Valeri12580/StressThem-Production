@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
 
         modelAndView.addObject("message", ex.getMessage());
         //todo fix this
-//         ex.getCause();
+        System.out.println(Arrays.toString(ex.getStackTrace()));
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         return modelAndView;
     }
