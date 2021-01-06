@@ -5,14 +5,12 @@ import com.stressthem.app.domain.models.service.AttackServiceModel;
 import com.stressthem.app.domain.models.service.MethodServiceModel;
 import com.stressthem.app.domain.models.service.UserServiceModel;
 import com.stressthem.app.domain.models.view.ProfileEditViewModel;
-import com.stressthem.app.helpers.UserConfirmationCode;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.context.annotation.SessionScope;
 
 import java.net.http.HttpClient;
 
@@ -33,10 +31,13 @@ public class ApplicationBeanConfiguration {
             }
         };
 
-        PropertyMap<AttackBindingModel, AttackServiceModel>editAttack=new PropertyMap<AttackBindingModel, AttackServiceModel>() {
+
+
+        PropertyMap<AttackBindingModel, AttackServiceModel> editAttack = new PropertyMap<AttackBindingModel, AttackServiceModel>() {
             @Override
             protected void configure() {
-                map().setMethod(new MethodServiceModel(source.getMethod()));
+
+                map().getMethod().setName(source.getMethod());
             }
         };
 
@@ -66,11 +67,9 @@ public class ApplicationBeanConfiguration {
     }
 
     @Bean
-    public HttpClient httpClient(){
+    public HttpClient httpClient() {
         return HttpClient.newBuilder().build();
     }
-
-
 
 
 }

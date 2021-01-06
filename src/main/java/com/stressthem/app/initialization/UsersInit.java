@@ -38,7 +38,7 @@ public class UsersInit implements CommandLineRunner {
 
         if (this.userRepository.count() == 0) {
 
-            User pride = new User("Pride", passwordEncoder.encode("H7r31331"), "pride@gmail.com",
+            User pride = new User("Pride", passwordEncoder.encode("h7r31331"), "pride@gmail.com",
                     "https://i.ytimg.com/vi/WhIrvsbEJ6Q/maxresdefault.jpg",
                     LocalDateTime.now(ZoneId.systemDefault()), null,
                     new HashSet<>(this.roleService.getAllRoles().stream().filter(e->!e.getName().equals("UNCONFIRMED")).collect(Collectors.toSet())),
