@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 public class AttackViewModel {
     private String host;
     private String port;
-    private MethodType method;
-    private int servers;
+    private String methodName;
     private LocalDateTime expiresOn;
 }

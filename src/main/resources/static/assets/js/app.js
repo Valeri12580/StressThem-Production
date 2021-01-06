@@ -15,7 +15,7 @@ $("#paymentButton").click(function (){
 
 
 $("#sendVerificationCodeBtn").click(function () {
-    fetch("http://localhost:8080/users/profile/verification")
+    fetch("http://localhost:80/users/profile/verification")
         .then(r => {
             if (r.ok) {
                 $("#confirmationStatus").text("Verification code is sent")
@@ -28,7 +28,7 @@ $("#sendVerificationCodeBtn").click(function () {
 $("#submitVerificationCode").click(function () {
     let code = $("#verificationCode").val()
     alert("test")
-    fetch("http://localhost:8080/users/profile/verification",
+    fetch("http://localhost:80/users/profile/verification",
         {
             method: "POST",
             body: JSON.stringify(code),
@@ -51,13 +51,13 @@ $("#submitVerificationCode").click(function () {
 
 
 $("#clearAttackHistory").click(function () {
-    fetch("http://localhost:8080/home/launch/clear")
+    fetch("http://localhost:80/home/launch/clear")
     $("#attackHistoryTBody").empty();
 })
 
 
 $("#refreshAttackHistory").click(function () {
-    let attacks = fetch("http://localhost:8080/home/launch/refresh")
+    let attacks = fetch("http://localhost:80/home/launch/refresh")
         .then(response => response.json()).then(array => {
             $("#attackHistoryTBody").empty();
 

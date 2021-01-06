@@ -28,7 +28,7 @@ public class ServerConnectionImpl implements ServerConnection {
     }
 
     @Override
-    public void sendRequest(String targetIp, String port, int time, MethodType method, String token) throws URISyntaxException, IOException, InterruptedException {
+    public void sendRequest(String targetIp, String port, int time, String method, String token) throws URISyntaxException, IOException, InterruptedException {
         //todo token
         //v1
         String url = String.format("%s?target=%s&port=%s&time=%s&method=%s&token=%s", MACHINE_IP, targetIp

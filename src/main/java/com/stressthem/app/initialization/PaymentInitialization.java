@@ -14,9 +14,8 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 
-@Order(value = 5)
+@Order(value = 6)
 @Component
 public class PaymentInitialization implements CommandLineRunner {
 
@@ -36,16 +35,30 @@ public class PaymentInitialization implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-       if(userActivePlanRepository.count()==0){
-           User user=userRepository.findUserByUsername("valeri12580").get();
-           Plan plan=planRepository.findByType("LIFETIME").get();
-           UserActivePlan userActivePlan = new UserActivePlan(plan,user, plan.getDurationInDays(), plan.getMaxBootsPerDay(),
-                   LocalDateTime.now());
-           userActivePlan.setUser(user);
+        if (userActivePlanRepository.count() == 0) {
+           saveFirstUser();
+           saveSecondUser();
+        }
 
-           userActivePlanRepository.save(userActivePlan);
-           transactionRepository.save(new Transaction(user,plan,null,LocalDateTime.now()));
-       }
+    }
 
+    private void  saveFirstUser(){
+        User user = userRepository.findUserByUsername("Pride").get();
+        initData(user);
+    }
+    private void  saveSecondUser(){
+        User user = userRepository.findUserByUsername("Google").get();
+        initData(user);
+
+    }
+
+    private void initData(User user){
+        Plan plan = planRepository.findByType("LIFETIME").get();
+        UserActivePlan userActivePlan = new UserActivePlan(plan, user, plan.getDurationInDays(), plan.getMaxBootsPerDay(),
+                LocalDateTime.now());
+        userActivePlan.setUser(user);
+
+        userActivePlanRepository.save(userActivePlan);
+        transactionRepository.save(new Transaction(user, plan, null, LocalDateTime.now()));
     }
 }

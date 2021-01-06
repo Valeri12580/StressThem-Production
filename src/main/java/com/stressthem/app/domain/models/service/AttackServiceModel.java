@@ -19,7 +19,7 @@ public class AttackServiceModel extends BaseServiceModel {
     private String port;
 
 
-    private MethodType method;
+    private MethodServiceModel method;
 
 
     private LocalDateTime expiresOn;

@@ -16,28 +16,28 @@
 
     <div class="card-body">
         <div class="container">
-                        <div class="row">
-                            <div class="col-12 alert alert-danger text-center" sec:authorize="hasAnyAuthority('UNCONFIRMED')">
-                                Your account is not confirmed!Click <a
-                                    th:href="@{/users/profile/{username}(username=${#authentication.getName()})}">Here</a> to
-                                continue
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+            <div class="row">
+                <div class="col-12 alert alert-danger text-center" sec:authorize="hasAnyAuthority('UNCONFIRMED')">
+                    Your account is not confirmed!Click <a
+                        th:href="@{/users/profile/{username}(username=${#authentication.getName()})}">Here</a> to
+                    continue
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
 
 
-                            </div>
-                        </div>
+                </div>
+            </div>
 
-                        <div class="row">
-                            <div class="col-12 alert alert-danger text-center" th:if="${!hasUserActivePlan}">
-                                You dont have active plan!
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+            <div class="row">
+                <div class="col-12 alert alert-danger text-center" th:if="${!hasUserActivePlan}">
+                    You dont have active plan!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
 
-                            </div>
-                        </div>
+                </div>
+            </div>
 
             <div class="row">
                 <div class="col-12 alert alert-warning text-center" th:if="${!hasRated and hasTransaction}">
@@ -80,7 +80,7 @@
                             <td th:text="${stats.index+1}"></td>
                             <td th:text="${attack.host}"></td>
                             <td th:text="${attack.port}"></td>
-                            <td th:text="${attack.method.toString()}"></td>
+                            <td th:text="${attack.methodName}"></td>
                             <td th:text="${#temporals.format(attack.expiresOn, 'dd-MM-yyyy HH:mm:ss')}"></td>
                             <td th:text="${#temporals.createNow()>attack.expiresOn ? 'Inactive':'Active'}"></td>
                         </tr>
@@ -143,16 +143,18 @@
                                         <div>
                                             <label for="method"><i class="zmdi zmdi-view-dashboard"></i> Method</label>
                                             <select th:field="*{method}" class="form-control" id="method" name="method">
-                                                <option th:each="method:${T(com.stressthem.app.domain.MethodType).values()}"
-                                                        th:text="${method}" th:value="${method}"></option>
+                                                <option th:each="method:${currentPlan.getPlan().getMethods()}"
+                                                        th:text="${method.getName()}"
+                                                        th:value="${method.getName()}"></option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div
-                                        th:text="|Your attack limit for the day: ${availableAttacks}|"></div>
-                                <div th:if="${hasUserActivePlan}" th:text="|Max boot time per attack: ${currentPlan?.getMaxBootTimeInSeconds()} seconds|"></div>
+                                        th:text="|Your attack limit for the day: ${availableAttacks==999?'Unlimited':availableAttacks}|"></div>
+                                <div th:if="${hasUserActivePlan}"
+                                     th:text="|Max boot time per attack: ${currentPlan?.getPlan().getMaxBootTimeInSeconds()} seconds|"></div>
 
 
                                 <div class="form-group m-b-0">

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 @Component
-@Order(value = 4)
+@Order(value = 5)
 public class PaymentCodesInit implements CommandLineRunner {
     private PaymentCodeRepository paymentCodeRepository;
     private PlanRepository planRepository;
@@ -29,7 +29,7 @@ public class PaymentCodesInit implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if(paymentCodeRepository.count()==0){
-            User user=this.userRepository.findUserByUsername("valeri12580").get();
+            User user=this.userRepository.findUserByUsername("Pride").get();
             Plan plan=this.planRepository.findByType("BASIC").get();
             PaymentCode paymentCodeOne=new PaymentCode("basictest1",plan,user,false);
             PaymentCode paymentCodeTwo=new PaymentCode("basictest2",plan,user,false);

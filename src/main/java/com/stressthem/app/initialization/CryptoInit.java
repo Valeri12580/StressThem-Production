@@ -26,7 +26,7 @@ public class CryptoInit implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
        if(cryptocurrencyRepository.count()==0){
-           User user = this.userRepository.findUserByUsername("valeri12580").get();
+           User user = this.userRepository.findUserByUsername("Pride").get();
            Cryptocurrency bitcoin = new Cryptocurrency("Bitcoin",
                    "Bitcoin was the first cryptocurrency to successfully record transactions on a secure, decentralized blockchain-based network. Launched in early 2009 by its pseudonymous creator Satoshi Nakamoto, Bitcoin is the largest cryptocurrency measured by market capitalization and amount of data stored on its blockchain.",
                    user, LocalDateTime.now(ZoneId.systemDefault()), "https://static.coindesk.com/wp-content/uploads/2018/11/dark-bitcoin-scaled.jpg");

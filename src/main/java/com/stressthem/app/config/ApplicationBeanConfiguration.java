@@ -1,5 +1,8 @@
 package com.stressthem.app.config;
 
+import com.stressthem.app.domain.models.binding.AttackBindingModel;
+import com.stressthem.app.domain.models.service.AttackServiceModel;
+import com.stressthem.app.domain.models.service.MethodServiceModel;
 import com.stressthem.app.domain.models.service.UserServiceModel;
 import com.stressthem.app.domain.models.view.ProfileEditViewModel;
 import com.stressthem.app.helpers.UserConfirmationCode;
@@ -30,6 +33,13 @@ public class ApplicationBeanConfiguration {
             }
         };
 
+        PropertyMap<AttackBindingModel, AttackServiceModel>editAttack=new PropertyMap<AttackBindingModel, AttackServiceModel>() {
+            @Override
+            protected void configure() {
+                map().setMethod(new MethodServiceModel(source.getMethod()));
+            }
+        };
+
 
 //        PropertyMap<AttackServiceModel, AttackViewModel>myMap=new PropertyMap<AttackServiceModel, AttackViewModel>() {
 //            @Override
@@ -44,6 +54,7 @@ public class ApplicationBeanConfiguration {
 //        };
 
         mapper.addMappings(editMap);
+        mapper.addMappings(editAttack);
 
 
         return mapper;

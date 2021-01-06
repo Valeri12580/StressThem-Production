@@ -1,6 +1,5 @@
 package com.stressthem.app.domain.entities;
 
-import com.stressthem.app.domain.MethodType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,10 +25,10 @@ public class Attack extends BaseEntity {
     @NotNull
     private String port;
 
-    @Column
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private MethodType method;
+
+    @ManyToOne
+    @JoinColumn(name = "method_id",referencedColumnName = "id")
+    private Method method;
 
 
     @Column

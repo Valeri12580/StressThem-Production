@@ -20,7 +20,7 @@ public class AttackBindingModel {
     @Max(value = 65535, message = "The maximum value is 65535")
     private int port;
 
-    private MethodType method;
+    private String method;
 
     @Positive(message = "The time must be >0")
     private int time;

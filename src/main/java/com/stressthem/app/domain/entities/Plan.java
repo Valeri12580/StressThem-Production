@@ -66,8 +66,14 @@ public class Plan extends BaseEntity {
     @JoinColumn(name = "creator_id", referencedColumnName = "id")
     private User author;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "plans_methods"
+    ,joinColumns = @JoinColumn(name = "plan_id",referencedColumnName = "id"),
+    inverseJoinColumns = @JoinColumn(name = "method_id",referencedColumnName = "id"))
+    private List<Method>methods;
+
     public Plan(@NotNull String type, @Positive @NotNull BigDecimal price, @NotNull @Positive int durationInDays, @NotNull @Positive double maxBootTimeInSeconds, @NotNull @Positive int maxBootsPerDay, @NotNull @PositiveOrZero int concurrent, LocalDateTime createdOn
-            , String token,String paymentLink) {
+            , String token,String paymentLink,List<Method>methods) {
         this.type = type;
         this.price = price;
         this.durationInDays = durationInDays;
@@ -77,5 +83,6 @@ public class Plan extends BaseEntity {
         this.createdOn = createdOn;
         this.token = token;
         this.paymentLink=paymentLink;
+        this.methods=methods;
     }
 }

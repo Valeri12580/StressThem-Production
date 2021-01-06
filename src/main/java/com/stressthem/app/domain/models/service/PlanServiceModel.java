@@ -38,6 +38,8 @@ public class PlanServiceModel extends BaseServiceModel {
 
     private List<PaymentCodeServiceModel> paymentCodes;
 
+    private List<MethodServiceModel>methods;
+
     @NotNull
     private UserServiceModel author;
 

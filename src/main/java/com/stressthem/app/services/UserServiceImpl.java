@@ -4,7 +4,7 @@ import com.stressthem.app.domain.entities.Plan;
 import com.stressthem.app.domain.entities.Role;
 import com.stressthem.app.domain.entities.User;
 import com.stressthem.app.domain.entities.UserActivePlan;
-import com.stressthem.app.domain.models.binding.PlanBindingModel;
+import com.stressthem.app.domain.models.service.UserActivePlanServiceModel;
 import com.stressthem.app.domain.models.service.UserServiceModel;
 import com.stressthem.app.exceptions.*;
 import com.stressthem.app.repositories.UserRepository;
@@ -52,11 +52,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public PlanBindingModel getActivePlan(String username) {
+    public UserActivePlanServiceModel getActivePlan(String username) {
         UserActivePlan plan = this.userRepository.findUserByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found")
         ).getUserActivePlan();
         if (plan != null) {
-            return this.modelMapper.map(plan.getPlan(), PlanBindingModel.class);
+            return this.modelMapper.map(plan, UserActivePlanServiceModel.class);
         }
         return null;
 
