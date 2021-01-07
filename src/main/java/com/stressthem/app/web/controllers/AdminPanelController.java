@@ -1,6 +1,5 @@
 package com.stressthem.app.web.controllers;
 
-import com.stressthem.app.domain.entities.Plan;
 import com.stressthem.app.domain.entities.Role;
 import com.stressthem.app.domain.models.binding.*;
 import com.stressthem.app.domain.models.service.*;
@@ -35,9 +34,10 @@ public class AdminPanelController {
     private final CryptocurrencyService cryptocurrencyService;
     private final PlanService planService;
     private final PaymentService paymentService;
+    private final MethodService methodService;
 
     @Autowired
-    public AdminPanelController(UserService userService, RoleService roleService, AnnouncementService announcementService, ModelMapper modelMapper, ArticleService articleService, CryptocurrencyService cryptocurrencyService, PlanService planService, PaymentService paymentService) {
+    public AdminPanelController(UserService userService, RoleService roleService, AnnouncementService announcementService, ModelMapper modelMapper, ArticleService articleService, CryptocurrencyService cryptocurrencyService, PlanService planService, PaymentService paymentService, MethodService methodService) {
         this.userService = userService;
         this.roleService = roleService;
         this.announcementService = announcementService;
@@ -46,6 +46,7 @@ public class AdminPanelController {
         this.cryptocurrencyService = cryptocurrencyService;
         this.planService = planService;
         this.paymentService = paymentService;
+        this.methodService = methodService;
     }
 
     @PageTitle("Change roles")
@@ -191,6 +192,7 @@ public class AdminPanelController {
         return "redirect:/admin/add-plan";
     }
 
+    @PageTitle(value = "Add payment code")
     @GetMapping("/add-payment-code")
     public String addPaymentCode(Model model) {
         List<String>plans=this.planService.getAllPlans().stream().map(PlanServiceModel::getType).collect(Collectors.toList());
@@ -226,6 +228,32 @@ public class AdminPanelController {
 
 
 
+    }
+
+    @PageTitle("Add method")
+    @GetMapping("/add-method")
+    public String addMethod(Model model){
+        if(!model.containsAttribute("method")){
+            model.addAttribute("method",new MethodBindingModel());
+        }
+
+        return "admin-panel-add-method";
+    }
+
+    @PostMapping("/add-method")
+    public String addMethodPost(@Valid  @ModelAttribute MethodBindingModel method,BindingResult result,RedirectAttributes redirectAttributes){
+        if(result.hasErrors()){
+            redirectAttributes.addFlashAttribute("method",method);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.method",result);
+        }
+
+        try{
+            this.methodService.saveMethod(this.modelMapper.map(method,MethodServiceModel.class));
+        }catch (EntityExistsException ex){
+            redirectAttributes.addFlashAttribute("existError",ex.getMessage());
+        }
+
+        return  "redirect:/admin/add-method";
     }
 
 

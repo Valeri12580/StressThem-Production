@@ -1,0 +1,32 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/head}">
+
+</head>
+<body>
+<nav class="navbar navbar-light navbar-expand-md navigation-clean-button" th:insert="~{fragments/nav}"></nav>
+<div class="card">
+    <div class="card-header" th:insert="~{fragments/nav-admin-panel}">
+
+    </div>
+
+    <div class="col-md-8 offset-md-2 mt-5">
+        <form  th:action="@{/admin/add-method}" th:object="${method}" th:method="post">
+            <div class="form-group">
+                <label for="method">Enter method</label>
+                <input th:field="*{name}"  type="text" class="form-control" id="method" name="name"
+                       aria-describedby="emailHelp" placeholder="Enter method name">
+            </div>
+
+            <div class="form-group">
+                <small th:errors="*{name}" class="form-text text-danger"></small>
+                <small th:if="${existError}" th:text="${existError}" class="form-text text-danger"></small>
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
