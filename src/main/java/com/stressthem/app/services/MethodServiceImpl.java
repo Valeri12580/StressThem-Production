@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
+import java.util.Optional;
 
 @Service
 public class MethodServiceImpl implements MethodService {
@@ -30,5 +31,13 @@ public class MethodServiceImpl implements MethodService {
         Method method=this.modelMapper.map(methodServiceModel,Method.class);
         this.methodRepository.save(method);
 
+    }
+
+    @Override
+    public MethodServiceModel findMethodByName(String name){
+
+        Method methodByName = this.methodRepository.findMethodByName(name).get();
+
+        return this.modelMapper.map(methodByName,MethodServiceModel.class);
     }
 }

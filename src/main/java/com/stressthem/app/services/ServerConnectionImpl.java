@@ -1,6 +1,5 @@
 package com.stressthem.app.services;
 
-import com.stressthem.app.domain.MethodType;
 import com.stressthem.app.services.interfaces.ServerConnection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

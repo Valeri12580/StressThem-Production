@@ -1,6 +1,5 @@
 package com.stressthem.app.domain.models.service;
 
-import com.stressthem.app.domain.MethodType;
 import com.stressthem.app.domain.entities.User;
 
 import lombok.Getter;

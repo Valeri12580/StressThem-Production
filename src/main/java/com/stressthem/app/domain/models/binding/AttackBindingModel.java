@@ -1,6 +1,5 @@
 package com.stressthem.app.domain.models.binding;
 
-import com.stressthem.app.domain.MethodType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +11,7 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 public class AttackBindingModel {
 
-    //@Pattern(regexp = "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$", message = "The host is not valid!")
+    @Pattern(regexp = "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)", message = "The host is not valid!")
     @NotEmpty(message = "Must not be empty")
     private String host;
 

@@ -19,8 +19,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/home")
@@ -66,8 +68,8 @@ public class HomeController {
         if (username != null) {
             model.addAttribute("hasUserActivePlan", this.userService.hasUserActivePlan(username));
 
-            model.addAttribute("attacksHistory", Arrays.asList(this.mapper
-                    .map(this.attackService.getAllAttacksForCurrentUser(username), AttackViewModel[].class)));
+            model.addAttribute("attacksHistory", Arrays.stream(this.mapper
+                    .map(this.attackService.getAllAttacksForCurrentUser(username), AttackViewModel[].class)).sorted((p1, p2)-> p2.getExpiresOn().compareTo(p1.getExpiresOn())).limit(5).collect(Collectors.toList()));
             model.addAttribute("availableAttacks", this.userService.getUserAvailableAttacks(username));
             model.addAttribute("userId", userId);
             model.addAttribute("hasRated",commentService.hasUserAlreadyCommented(authentication.getName()));

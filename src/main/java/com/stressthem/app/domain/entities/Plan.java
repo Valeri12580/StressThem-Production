@@ -66,7 +66,7 @@ public class Plan extends BaseEntity {
     @JoinColumn(name = "creator_id", referencedColumnName = "id")
     private User author;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "plans_methods"
     ,joinColumns = @JoinColumn(name = "plan_id",referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "method_id",referencedColumnName = "id"))

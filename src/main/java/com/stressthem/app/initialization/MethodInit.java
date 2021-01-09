@@ -20,22 +20,24 @@ public class MethodInit implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Method spacex = new Method("SpaceX");
-        Method randPackets = new Method("RandPackets");
-        Method httPrequest = new Method("HTTPrequest");
-        Method pathFinder = new Method("PathFinder");
-        Method mixed = new Method("Mixed");
-        Method fiveM = new Method("FiveM");
-        Method uamBypass = new Method("UAMBypass");
-        Method cfCrasher1 = new Method("CFCrasher1");
-        Method cfCrasher2 = new Method("CFCrasher2");
-        Method httPstormSG = new Method("HTTPstormSG");
-        Method httPstormPG= new Method("HTTPstormPG");
-        Method httPstormMIX= new Method("HTTPstormMIX");
-        Method httpRND= new Method("httpRND");
-        Method xFreeze= new Method("xFreeze");
+        if(methodRepository.count()==0){
+            Method spacex = new Method("SpaceX");
+            Method randPackets = new Method("RandPackets");
+            Method httPrequest = new Method("HTTPrequest");
+            Method pathFinder = new Method("PathFinder");
+            Method mixed = new Method("Mixed");
+            Method fiveM = new Method("FiveM");
+            Method uamBypass = new Method("UAMBypass");
+            Method cfCrasher1 = new Method("CFCrasher1");
+            Method cfCrasher2 = new Method("CFCrasher2");
+            Method httPstormSG = new Method("HTTPstormSG");
+            Method httPstormPG= new Method("HTTPstormPG");
+            Method httPstormMIX= new Method("HTTPstormMIX");
+            Method httpRND= new Method("httpRND");
+            Method xFreeze= new Method("xFreeze");
 
-        this.methodRepository.saveAll(List.of(spacex,randPackets,httPrequest,pathFinder,mixed,fiveM,uamBypass,cfCrasher1,cfCrasher2,
-                httPstormSG,httPstormPG,httPstormMIX,httpRND,xFreeze));
+            this.methodRepository.saveAll(List.of(spacex,randPackets,httPrequest,pathFinder,mixed,fiveM,uamBypass,cfCrasher1,cfCrasher2,
+                    httPstormSG,httPstormPG,httPstormMIX,httpRND,xFreeze));
+        }
     }
 }

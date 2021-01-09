@@ -5,10 +5,7 @@ import com.stressthem.app.domain.entities.User;
 import com.stressthem.app.domain.entities.UserActivePlan;
 import com.stressthem.app.domain.models.service.AttackServiceModel;
 import com.stressthem.app.repositories.AttackRepository;
-import com.stressthem.app.services.interfaces.AttackService;
-import com.stressthem.app.services.interfaces.ServerConnection;
-import com.stressthem.app.services.interfaces.UserActivePlanService;
-import com.stressthem.app.services.interfaces.UserService;
+import com.stressthem.app.services.interfaces.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,14 +26,16 @@ public class AttackServiceImpl implements AttackService {
     private UserService userService;
     private UserActivePlanService userActivePlanService;
     private ServerConnection serverConnection;
+    private MethodService methodService;
 
     @Autowired
-    public AttackServiceImpl(ModelMapper modelMapper, AttackRepository attackRepository, UserService userService, UserActivePlanService userActivePlanService, ServerConnection serverConnection) {
+    public AttackServiceImpl(ModelMapper modelMapper, AttackRepository attackRepository, UserService userService, UserActivePlanService userActivePlanService, ServerConnection serverConnection, MethodService methodService) {
         this.modelMapper = modelMapper;
         this.attackRepository = attackRepository;
         this.userService = userService;
         this.userActivePlanService = userActivePlanService;
         this.serverConnection = serverConnection;
+        this.methodService = methodService;
     }
 
     @Override
@@ -53,11 +52,13 @@ public class AttackServiceImpl implements AttackService {
             e.printStackTrace();
         }
 
+        attackServiceModel.setMethod(methodService.findMethodByName(attackServiceModel.getMethod().getName()));
         Attack attack = this.modelMapper.map(attackServiceModel, Attack.class);
 
         User user = this.modelMapper.map(this.userService.getUserByUsername(username), User.class);
 
         attack.setAttacker(user);
+
 
         this.userActivePlanService.decreaseLeftAttacksForTheDay(user.getUserActivePlan());
 

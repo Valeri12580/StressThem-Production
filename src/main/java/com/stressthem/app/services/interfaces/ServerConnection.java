@@ -1,7 +1,5 @@
 package com.stressthem.app.services.interfaces;
 
-import com.stressthem.app.domain.MethodType;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 

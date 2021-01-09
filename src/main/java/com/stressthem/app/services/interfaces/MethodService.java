@@ -8,4 +8,5 @@ public interface MethodService {
     void saveMethod(MethodServiceModel methodServiceModel);
 
 
+    MethodServiceModel findMethodByName(String name);
 }
