@@ -15,5 +15,6 @@ public class MethodBindingModel {
     @NotEmpty(message = "Can't be empty!")
     private String name;
 
+    @NotEmpty(message = "Must have at least one method")
     private List<String>plans;
 }

@@ -22,9 +22,9 @@
             </div>
             <div class="row register-form">
                 <div class="col-md-8 offset-md-2">
-                    <div class="contact-clean">
+
                         <form th:object="${article}" th:method="post" th:action="@{/admin/add-article}"
-                              style="background-color: rgb(252,250,250);">
+                              >
                             <h2 class="text-center">Add article</h2>
                             <div class="form-group"><input th:field="*{title}" class="form-control" type="text"
                                                            name="title"
@@ -42,7 +42,7 @@
                                 <button class="btn btn-primary rounded-pill" type="submit">Add</button>
                             </div>
                         </form>
-                    </div>
+
                 </div>
             </div>
         </div>

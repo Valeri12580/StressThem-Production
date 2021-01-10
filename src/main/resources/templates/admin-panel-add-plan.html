@@ -17,11 +17,10 @@
     <div class="card-body">
         <div class="container">
 
-            <div class="row register-form">
+
                 <div class="col-md-8 offset-md-2">
-                    <div class="contact-clean">
-                        <form th:object="${plan}" th:method="post" th:action="@{/admin/add-plan}"
-                              style="background-color: rgb(252,250,250);">
+
+                        <form th:object="${plan}" th:method="post" th:action="@{/admin/add-plan}">
                             <h2 class="text-center">Add plan</h2>
                             <div class="form-group">
                                 <label for="type">Name of the plan</label>
@@ -64,14 +63,24 @@
                                        placeholder="Price of the plan" required="">
                                 <small th:if="${#fields.hasErrors('concurrent')}"  th:errors="*{concurrent}" class="form-text text-danger"></small>
                             </div>
+
+                            <div class="form-group">
+                                <label for="plans">Select plans that will have that method</label>
+                                <select th:field="*{methods}" multiple class="form-control" id="plans" >
+                                    <option  th:each="method:${methods}" th:text="${method}" th:value="${method}"></option>
+
+                                </select>
+                                <small th:if="${#fields.hasErrors('methods')}"  th:errors="*{methods}" class="form-text text-danger"></small>
+                            </div>
+
                             <div class="form-group text-center">
                                 <button class="btn btn-primary rounded-pill" type="submit">Add</button>
                             </div>
                         </form>
-                    </div>
+
                 </div>
             </div>
-        </div>
+
     </div>
 </div>
 <div class="footer-basic">

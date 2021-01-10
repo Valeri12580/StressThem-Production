@@ -9,4 +9,6 @@ public interface MethodService {
 
 
     MethodServiceModel findMethodByName(String name);
+
+    List<MethodServiceModel>findAllMethods();
 }

@@ -18,8 +18,8 @@
 
             <div class="row register-form">
                 <div class="col-md-8 offset-md-2">
-                    <div class="contact-clean">
-                        <form th:object="${cryptocurrency}" th:method="post" th:action="@{/admin/add-cryptocurrency}" style="background-color: rgb(252,250,250);">
+
+                        <form th:object="${cryptocurrency}" th:method="post" th:action="@{/admin/add-cryptocurrency}" >
                             <h2 class="text-center">Add Cryptocurrency</h2>
                             <div class="form-group"><input th:field="*{title}" class="form-control" type="text" name="title"
                                                            placeholder="Title" required="">
@@ -35,7 +35,7 @@
                                 <button class="btn btn-primary rounded-pill" type="submit">Add</button>
                             </div>
                         </form>
-                    </div>
+
                 </div>
             </div>
         </div>

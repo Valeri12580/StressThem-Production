@@ -19,8 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.persistence.EntityExistsException;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 import java.util.stream.Collectors;
-import java.util.*;
 
 @Controller
 @RequestMapping("/admin")
@@ -168,6 +168,7 @@ public class AdminPanelController {
     @PageTitle("Add plan")
     @GetMapping("/add-plan")
     public String addPlan(Model model) {
+        model.addAttribute("methods", methodService.findAllMethods().stream().map(MethodServiceModel::getName).collect(Collectors.toList()));
         if (!model.containsAttribute("plan")) {
             model.addAttribute("plan", new PlanBindingModel());
         }
@@ -195,9 +196,9 @@ public class AdminPanelController {
     @PageTitle(value = "Add payment code")
     @GetMapping("/add-payment-code")
     public String addPaymentCode(Model model) {
-        List<String>plans=this.planService.getAllPlans().stream().map(PlanServiceModel::getType).collect(Collectors.toList());
+        List<String> plans = this.planService.getAllPlans().stream().map(PlanServiceModel::getType).collect(Collectors.toList());
 
-        model.addAttribute("plans",plans);
+        model.addAttribute("plans", plans);
         if (!model.containsAttribute("paymentCode")) {
             model.addAttribute("paymentCode", new PaymentCodeBindingModel());
         }
@@ -208,54 +209,55 @@ public class AdminPanelController {
 
 
     @PostMapping("/add-payment-code")
-    public String postAddPaymentCode(@Valid @ModelAttribute PaymentCodeBindingModel paymentCodeBindingModel,BindingResult bindingResult,RedirectAttributes redirectAttributes,Principal principal){
+    public String postAddPaymentCode(@Valid @ModelAttribute PaymentCodeBindingModel paymentCodeBindingModel, BindingResult bindingResult, RedirectAttributes redirectAttributes, Principal principal) {
 
-        if(bindingResult.hasErrors()){
-            redirectAttributes.addFlashAttribute("paymentCode",paymentCodeBindingModel);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.paymentCode",bindingResult);
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("paymentCode", paymentCodeBindingModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.paymentCode", bindingResult);
 
+        }else{
+            try {
+                this.paymentService.saveCode(paymentCodeBindingModel.getCode(), paymentCodeBindingModel.getPlanName(), principal.getName());
+            } catch (EntityExistsException ex) {
+                redirectAttributes.addFlashAttribute("existError", ex.getMessage());
+            }
         }
 
-        try{
-            this.paymentService.saveCode(paymentCodeBindingModel.getCode(),paymentCodeBindingModel.getPlanName(),principal.getName());
-        }catch (EntityExistsException ex){
-            redirectAttributes.addFlashAttribute("existError",ex.getMessage());
-        }
 
 
-        return  "redirect:/admin/add-payment-code";
 
-
+        return "redirect:/admin/add-payment-code";
 
 
     }
 
     @PageTitle("Add method")
     @GetMapping("/add-method")
-    public String addMethod(Model model){
-        List<String>plans=this.planService.getAllPlans().stream().map(PlanServiceModel::getType).collect(Collectors.toList());
-        model.addAttribute("plans",plans);
-        if(!model.containsAttribute("method")){
-            model.addAttribute("method",new MethodBindingModel());
+    public String addMethod(Model model) {
+        List<String> plans = this.planService.getAllPlans().stream().map(PlanServiceModel::getType).collect(Collectors.toList());
+        model.addAttribute("plans", plans);
+        if (!model.containsAttribute("method")) {
+            model.addAttribute("method", new MethodBindingModel());
         }
 
         return "admin-panel-add-method";
     }
 
     @PostMapping("/add-method")
-    public String addMethodPost(@Valid  @ModelAttribute MethodBindingModel method,BindingResult result,RedirectAttributes redirectAttributes){
-        if(result.hasErrors()){
-            redirectAttributes.addFlashAttribute("method",method);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.method",result);
+    public String addMethodPost(@Valid @ModelAttribute MethodBindingModel method, BindingResult result, RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
+            redirectAttributes.addFlashAttribute("method", method);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.method", result);
+
+        } else {
+            try {
+                this.methodService.saveMethod(this.modelMapper.map(method, MethodServiceModel.class), method.getPlans());
+            } catch (EntityExistsException ex) {
+                redirectAttributes.addFlashAttribute("existError", ex.getMessage());
+            }
         }
 
-        try{
-            this.methodService.saveMethod(this.modelMapper.map(method,MethodServiceModel.class),method.getPlans());
-        }catch (EntityExistsException ex){
-            redirectAttributes.addFlashAttribute("existError",ex.getMessage());
-        }
-
-        return  "redirect:/admin/add-method";
+        return "redirect:/admin/add-method";
     }
 
 

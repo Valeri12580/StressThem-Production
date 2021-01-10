@@ -9,31 +9,33 @@
     <div class="card-header" th:insert="~{fragments/nav-admin-panel}">
 
     </div>
+    <div class="card-body">
+        <div class="col-md-8 offset-md-2 mt-5">
+            <form th:action="@{/admin/add-method}" th:object="${method}" th:method="post">
+                <div class="form-group">
+                    <label for="method">Enter method</label>
+                    <input th:field="*{name}" type="text" class="form-control" id="method" name="name"
+                           aria-describedby="emailHelp" placeholder="Enter method name">
+                </div>
 
-    <div class="col-md-8 offset-md-2 mt-5">
-        <form  th:action="@{/admin/add-method}" th:object="${method}" th:method="post">
-            <div class="form-group">
-                <label for="method">Enter method</label>
-                <input th:field="*{name}"  type="text" class="form-control" id="method" name="name"
-                       aria-describedby="emailHelp" placeholder="Enter method name">
-            </div>
+                <div class="form-group">
+                    <label for="plans">Select plans that will have that method</label>
+                    <select th:field="*{plans}" multiple class="form-control" id="plans">
+                        <option th:each="plan:${plans}" th:text="${plan}" th:value="${plan}"></option>
 
-            <div class="form-group">
-                <label for="plans">Select plans that will have that method</label>
-                <select th:field="*{plans}" multiple class="form-control" id="plans" >
-                    <option  th:each="plan:${plans}" th:text="${plan}" th:value="${plan}"></option>
+                    </select>
+                </div>
 
-                </select>
-            </div>
-
-            <div class="form-group">
-                <small th:errors="*{name}" class="form-text text-danger"></small>
-                <small th:if="${existError}" th:text="${existError}" class="form-text text-danger"></small>
-            </div>
-            <div class="form-group text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </form>
+                <div class="form-group">
+                    <small th:errors="*{name}" class="form-text text-danger"></small>
+                    <small th:errors="*{plans}" class="form-text text-danger"></small>
+                    <small th:if="${existError}" th:text="${existError}" class="form-text text-danger"></small>
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary rounded-pill">Submit</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 </body>

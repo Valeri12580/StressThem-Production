@@ -4,10 +4,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -30,4 +32,7 @@ public class PlanBindingModel {
 
     @Positive(message = "Must be positive")
     private int concurrent;
+
+    @NotEmpty(message = "Must have at least one method")
+    private List<String>methods;
 }

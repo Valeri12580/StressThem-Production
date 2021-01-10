@@ -52,4 +52,12 @@ public class MethodServiceImpl implements MethodService {
 
         return this.modelMapper.map(methodByName, MethodServiceModel.class);
     }
+
+    @Override
+    public List<MethodServiceModel> findAllMethods() {
+        List<Method> methods = this.methodRepository.findAll();
+
+
+        return List.of(this.modelMapper.map(methods,MethodServiceModel[].class));
+    }
 }
