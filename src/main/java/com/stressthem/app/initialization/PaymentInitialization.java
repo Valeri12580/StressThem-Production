@@ -36,24 +36,18 @@ public class PaymentInitialization implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if (userActivePlanRepository.count() == 0) {
-           saveFirstUser();
-           saveSecondUser();
+           saveUser("Pride","LIFETIME");
+           saveUser("Google","LIFETIME");
+           saveUser("Normal","FREE");
+
         }
 
     }
 
-    private void  saveFirstUser(){
-        User user = userRepository.findUserByUsername("Pride").get();
-        initData(user);
-    }
-    private void  saveSecondUser(){
-        User user = userRepository.findUserByUsername("Google").get();
-        initData(user);
+    private void saveUser(String username,String planName){
+        User user = userRepository.findUserByUsername(username).get();
+        Plan plan = planRepository.findByType(planName).get();
 
-    }
-
-    private void initData(User user){
-        Plan plan = planRepository.findByType("LIFETIME").get();
         UserActivePlan userActivePlan = new UserActivePlan(plan, user, plan.getDurationInDays(), plan.getMaxBootsPerDay(),
                 LocalDateTime.now());
         userActivePlan.setUser(user);
@@ -61,4 +55,6 @@ public class PaymentInitialization implements CommandLineRunner {
         userActivePlanRepository.save(userActivePlan);
         transactionRepository.save(new Transaction(user, plan, null, LocalDateTime.now()));
     }
+
+  
 }

@@ -21,20 +21,20 @@ public class MethodInit implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if(methodRepository.count()==0){
-            Method spacex = new Method("SpaceX");
-            Method randPackets = new Method("RandPackets");
-            Method httPrequest = new Method("HTTPrequest");
-            Method pathFinder = new Method("PathFinder");
-            Method mixed = new Method("Mixed");
-            Method fiveM = new Method("FiveM");
-            Method uamBypass = new Method("UAMBypass");
-            Method cfCrasher1 = new Method("CFCrasher1");
-            Method cfCrasher2 = new Method("CFCrasher2");
-            Method httPstormSG = new Method("HTTPstormSG");
-            Method httPstormPG= new Method("HTTPstormPG");
-            Method httPstormMIX= new Method("HTTPstormMIX");
-            Method httpRND= new Method("httpRND");
-            Method xFreeze= new Method("xFreeze");
+            Method spacex = new Method("SpaceX",null);
+            Method randPackets = new Method("RandPackets",null);
+            Method httPrequest = new Method("HTTPrequest",null);
+            Method pathFinder = new Method("PathFinder",null);
+            Method mixed = new Method("Mixed",null);
+            Method fiveM = new Method("FiveM",null);
+            Method uamBypass = new Method("UAMBypass",null);
+            Method cfCrasher1 = new Method("CFCrasher1",null);
+            Method cfCrasher2 = new Method("CFCrasher2",null);
+            Method httPstormSG = new Method("HTTPstormSG",null);
+            Method httPstormPG= new Method("HTTPstormPG",null);
+            Method httPstormMIX= new Method("HTTPstormMIX",null);
+            Method httpRND= new Method("httpRND",null);
+            Method xFreeze= new Method("xFreeze",null);
 
             this.methodRepository.saveAll(List.of(spacex,randPackets,httPrequest,pathFinder,mixed,fiveM,uamBypass,cfCrasher1,cfCrasher2,
                     httPstormSG,httPstormPG,httPstormMIX,httpRND,xFreeze));

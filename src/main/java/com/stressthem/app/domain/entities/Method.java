@@ -13,7 +13,7 @@ import java.util.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class Method extends BaseEntity {
 
     @Column

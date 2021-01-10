@@ -1,6 +1,7 @@
 package com.stressthem.app.services;
 
 import com.stressthem.app.domain.entities.Plan;
+import com.stressthem.app.domain.models.service.MethodServiceModel;
 import com.stressthem.app.domain.models.service.PlanServiceModel;
 import com.stressthem.app.domain.models.service.UserServiceModel;
 import com.stressthem.app.exceptions.PlanNotFoundException;
@@ -73,4 +74,13 @@ public class PlanServiceImpl implements PlanService {
     }
 
 
+    @Override
+    public void saveMethodForPlans(List<String> plans, MethodServiceModel methodServiceModel) {
+        List<PlanServiceModel> plansServiceModel =plans.stream().map(this::findPlanByType)
+               .collect(Collectors.toList());
+        plansServiceModel.forEach(p->p.addMethod(methodServiceModel));;
+
+        this.planRepository.saveAll(List.of(this.modelMapper.map(plansServiceModel,Plan[].class)));
+
+    }
 }

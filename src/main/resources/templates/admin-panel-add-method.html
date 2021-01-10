@@ -19,6 +19,14 @@
             </div>
 
             <div class="form-group">
+                <label for="plans">Select plans that will have that method</label>
+                <select th:field="*{plans}" multiple class="form-control" id="plans" >
+                    <option  th:each="plan:${plans}" th:text="${plan}" th:value="${plan}"></option>
+
+                </select>
+            </div>
+
+            <div class="form-group">
                 <small th:errors="*{name}" class="form-text text-danger"></small>
                 <small th:if="${existError}" th:text="${existError}" class="form-text text-danger"></small>
             </div>

@@ -233,6 +233,8 @@ public class AdminPanelController {
     @PageTitle("Add method")
     @GetMapping("/add-method")
     public String addMethod(Model model){
+        List<String>plans=this.planService.getAllPlans().stream().map(PlanServiceModel::getType).collect(Collectors.toList());
+        model.addAttribute("plans",plans);
         if(!model.containsAttribute("method")){
             model.addAttribute("method",new MethodBindingModel());
         }
@@ -248,7 +250,7 @@ public class AdminPanelController {
         }
 
         try{
-            this.methodService.saveMethod(this.modelMapper.map(method,MethodServiceModel.class));
+            this.methodService.saveMethod(this.modelMapper.map(method,MethodServiceModel.class),method.getPlans());
         }catch (EntityExistsException ex){
             redirectAttributes.addFlashAttribute("existError",ex.getMessage());
         }

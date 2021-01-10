@@ -1,6 +1,8 @@
 package com.stressthem.app.web;
 
 import com.stressthem.app.web.annotations.PageTitle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,6 +13,8 @@ import java.util.Arrays;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    private Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
 
     @ExceptionHandler(Throwable.class)
     @PageTitle("Oops...")
@@ -19,7 +23,7 @@ public class GlobalExceptionHandler {
 
         modelAndView.addObject("message", ex.getMessage());
         //todo fix this
-        System.err.println(Arrays.toString(ex.getStackTrace()));
+        logger.error("error",ex);
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         return modelAndView;
     }

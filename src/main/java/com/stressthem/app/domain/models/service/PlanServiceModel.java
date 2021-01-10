@@ -43,4 +43,8 @@ public class PlanServiceModel extends BaseServiceModel {
     @NotNull
     private UserServiceModel author;
 
+
+    public void addMethod(MethodServiceModel methodServiceModel){
+        this.methods.add(methodServiceModel);
+    }
 }
