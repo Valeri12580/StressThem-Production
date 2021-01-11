@@ -187,11 +187,13 @@ public class AdminPanelController {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.plan", result);
         } else {
             this.planService.register(this.modelMapper.map(planBindingModel,
-                    PlanServiceModel.class), principal.getName());
+                    PlanServiceModel.class),planBindingModel.getMethods(), principal.getName());
         }
 
         return "redirect:/admin/add-plan";
     }
+
+
 
     @PageTitle(value = "Add payment code")
     @GetMapping("/add-payment-code")

@@ -6,10 +6,12 @@ import com.stressthem.app.domain.models.service.PlanServiceModel;
 import com.stressthem.app.domain.models.service.UserServiceModel;
 import com.stressthem.app.exceptions.PlanNotFoundException;
 import com.stressthem.app.repositories.PlanRepository;
+import com.stressthem.app.services.interfaces.MethodService;
 import com.stressthem.app.services.interfaces.PlanService;
 import com.stressthem.app.services.interfaces.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -24,20 +26,24 @@ public class PlanServiceImpl implements PlanService {
     private ModelMapper modelMapper;
     private PlanRepository planRepository;
     private UserService userService;
+    private MethodService methodService;
 
     @Autowired
-    public PlanServiceImpl(ModelMapper modelMapper, PlanRepository planRepository, UserService userService) {
+    public PlanServiceImpl(ModelMapper modelMapper, PlanRepository planRepository, UserService userService, @Lazy MethodService methodService) {
         this.modelMapper = modelMapper;
         this.planRepository = planRepository;
         this.userService = userService;
+        this.methodService = methodService;
     }
 
     @Override
-    public PlanServiceModel register(PlanServiceModel planServiceModel, String username) {
+    public PlanServiceModel register(PlanServiceModel planServiceModel,List<String>methods, String username) {
 
+        List<MethodServiceModel> methodServiceModels = methods.stream().map(m -> this.methodService.findMethodByName(m)).collect(Collectors.toList());
         UserServiceModel author = this.userService.getUserByUsername(username);
 
         planServiceModel.setAuthor(author);
+        planServiceModel.setMethods(methodServiceModels);
 
         Plan plan = this.modelMapper.map(planServiceModel, Plan.class);
 

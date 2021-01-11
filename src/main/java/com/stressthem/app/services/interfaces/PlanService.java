@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PlanService {
 
-    PlanServiceModel register(PlanServiceModel planServiceModel, String username);
+    PlanServiceModel register(PlanServiceModel planServiceModel, List<String>methods,String username);
 
     List<PlanServiceModel> getAllPlans();
 

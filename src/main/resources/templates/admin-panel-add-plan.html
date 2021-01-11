@@ -65,7 +65,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="plans">Select plans that will have that method</label>
+                                <label for="plans">Select methods that will be included in this plan</label>
                                 <select th:field="*{methods}" multiple class="form-control" id="plans" >
                                     <option  th:each="method:${methods}" th:text="${method}" th:value="${method}"></option>
 
