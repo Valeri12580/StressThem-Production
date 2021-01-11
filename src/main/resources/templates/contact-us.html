@@ -9,13 +9,33 @@
     <nav class="navbar navbar-light navbar-expand-md navigation-clean-button" th:insert="~{fragments/nav}">
 
     </nav>
-    <div class="contact-clean" style="background-color: rgb(248,248,248);">
-        <form method="post" action="mailto:test@abv.bg" >
-            <h2 class="text-center">Contact us</h2>
-            <div class="form-group"><input class="form-control" type="text" name="name" placeholder="Name"><small class="form-text text-danger">Please enter correct name</small></div>
-            <div class="form-group"><input class="form-control is-invalid" type="email" name="email" placeholder="Email"><small class="form-text text-danger">Please enter a correct email address.</small></div>
-            <div class="form-group"><textarea class="form-control" name="message" placeholder="Message" rows="14"></textarea><small class="form-text text-danger">Please enter correct text</small></div>
-            <div class="form-group"><button class="btn btn-primary rounded-pill " type="submit">Send </button></div>
+    <div class="container contact-form" >
+
+            <div style="margin: 0 auto">
+                <i class="fas fa-envelope"></i>
+            </div>
+
+        <form method="post">
+            <h3>Drop Us a Message</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" name="txtName" class="border rounded form-control" placeholder="Your Name *" value="" />
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="txtEmail" class="border rounded form-control" placeholder="Your Email *" value="" />
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" name="btnSubmit" class="rounded-pill btn btn-primary"  value="Send Message" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <textarea name="txtMsg" class="form-control border rounded" placeholder="Your Message *" style="width: 100%; height: 150px;"></textarea>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
     <div class="footer-basic">
