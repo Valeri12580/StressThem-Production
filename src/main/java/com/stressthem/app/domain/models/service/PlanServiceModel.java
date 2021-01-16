@@ -34,6 +34,8 @@ public class PlanServiceModel extends BaseServiceModel {
     @NonNull
     private int concurrent;
 
+    private String token;
+
     private String paymentLink;
 
     private List<PaymentCodeServiceModel> paymentCodes;
