@@ -9,6 +9,14 @@ VANTA.NET({
 })
 
 
+$(function (){
+    $("#planSelection").change(function () {
+        alert("test")
+    })
+})
+
+
+
 $("#paymentButton").click(function (){
     $("#paymentCodeDiv").show();
 })

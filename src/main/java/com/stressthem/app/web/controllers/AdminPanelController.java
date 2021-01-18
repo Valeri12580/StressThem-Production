@@ -262,5 +262,14 @@ public class AdminPanelController {
         return "redirect:/admin/add-method";
     }
 
+    @PageTitle("Remove method")
+    @GetMapping("/remove-method")
+    public String removeMethod(Model model){
+        List<String> plans = this.planService.getAllPlans().stream().map(e -> e.getType()).collect(Collectors.toList());
+        model.addAttribute("plans",plans);
+        model.addAttribute("model",new MethodRemoveBindingModel());
+        return "admin-panel-remove-method";
+    }
+
 
 }
