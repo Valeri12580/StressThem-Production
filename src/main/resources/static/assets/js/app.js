@@ -9,8 +9,12 @@ VANTA.NET({
 })
 
 
+$(function () {
+   $("#planSelection").trigger('change');
+})
+
 $("#planSelection").change(function () {
-    alert("test")
+
 })
 
 
