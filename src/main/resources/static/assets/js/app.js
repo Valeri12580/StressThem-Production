@@ -9,15 +9,12 @@ VANTA.NET({
 })
 
 
-$(function (){
-    $("#planSelection").change(function () {
-        alert("test")
-    })
+$("#planSelection").change(function () {
+    alert("test")
 })
 
 
-
-$("#paymentButton").click(function (){
+$("#paymentButton").click(function () {
     $("#paymentCodeDiv").show();
 })
 
@@ -43,16 +40,16 @@ $("#submitVerificationCode").click(function () {
             headers: {
                 'Content-Type': 'application/json'
             },
-        }).then(e =>{
-            if(!e.ok){
-                $("#confirmationStatus").text("The code doesn't match the actual one")
-                $("#confirmationDiv").removeClass("alert-success").addClass("alert-warning")
+        }).then(e => {
+        if (!e.ok) {
+            $("#confirmationStatus").text("The code doesn't match the actual one")
+            $("#confirmationDiv").removeClass("alert-success").addClass("alert-warning")
 
-            }else{
-                $("#confirmationStatus").text("Your account is confirmed")
-                $("#confirmationDiv").removeClass("alert-warning").addClass("alert-success")
-                $("#inputConfirmationDiv").hide()
-            }
+        } else {
+            $("#confirmationStatus").text("Your account is confirmed")
+            $("#confirmationDiv").removeClass("alert-warning").addClass("alert-success")
+            $("#inputConfirmationDiv").hide()
+        }
     })
 
 })
