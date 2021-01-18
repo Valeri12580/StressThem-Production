@@ -13,8 +13,12 @@ $(function () {
    $("#planSelection").trigger('change');
 })
 
-$("#planSelection").change(function () {
+$("#planSelection").change(function (e) {
 
+    let value = $( "#planSelection option:selected" ).text();
+    console.log(value)
+    fetch("http://localhost:80/methods",{method:'post',body:JSON.stringify({plan:value})})
+        .then(e=>e.json()).then(e=>console.log(e))
 })
 
 
