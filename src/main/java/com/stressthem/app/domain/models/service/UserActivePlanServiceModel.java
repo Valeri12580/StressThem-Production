@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 public class UserActivePlanServiceModel extends BaseServiceModel {
 
     private UserServiceModel user;
+
     private PlanServiceModel plan;
 
     private int leftDays;

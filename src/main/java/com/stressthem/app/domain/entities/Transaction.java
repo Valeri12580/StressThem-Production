@@ -18,9 +18,9 @@ import java.time.LocalDateTime;
 
 public class Transaction extends BaseEntity {
 
-    @NotNull
+
     @ManyToOne
-    @JoinColumn(name = "user_id",referencedColumnName = "id")
+    @JoinColumn(name = "user_id",referencedColumnName = "id",nullable = true)
     private User user;
 
 

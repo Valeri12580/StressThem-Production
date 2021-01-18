@@ -70,21 +70,21 @@ public class AdminPanelController {
     }
 
     @PageTitle("Delete user")
-    @GetMapping("/delete-user")
+    @GetMapping("/disable-user")
     public String deleteUser(Model model) {
         model.addAttribute("users", this.userService.getAllUsers().stream().map(UserServiceModel::getUsername).collect(Collectors.toList()));
 
-        return "admin-panel-delete-user";
+        return "admin-panel-disable-user";
     }
 
-    @PostMapping("/delete-user")
-    public String postDeleteUser(@RequestParam String username, Principal principal, RedirectAttributes redirectAttributes) {
+    @PostMapping("/disable-user")
+    public String postDisableUser(@RequestParam String username,RedirectAttributes redirectAttributes) {
         try {
-            this.userService.deleteUserByUsername(username, principal.getName());
+            this.userService.disableUser(username);
         } catch (UserDeletionException ex) {
             redirectAttributes.addFlashAttribute("error", ex.getMessage());
         }
-        return "redirect:/admin/delete-user";
+        return "redirect:/admin/disable-user";
     }
 
     @PageTitle("Add announcement")

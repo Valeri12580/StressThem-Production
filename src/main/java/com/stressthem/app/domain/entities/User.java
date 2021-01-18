@@ -33,6 +33,7 @@ public class User extends BaseEntity implements UserDetails {
     @Email
     private String email;
 
+
     @Column(columnDefinition = "TEXT")
     //todo Data truncation: Data too long for column 'image_url' at row 1
     private String imageUrl;
@@ -42,8 +43,12 @@ public class User extends BaseEntity implements UserDetails {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")//todo fix this,doesnt show the correct registration time
     private LocalDateTime registeredOn;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user",cascade = CascadeType.REMOVE)
     private UserActivePlan userActivePlan;
+
+
+    @NotNull
+    private boolean isEnabled=true;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
@@ -57,7 +62,7 @@ public class User extends BaseEntity implements UserDetails {
     private List<Attack> attacks=new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "author",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "author")
     private List<Plan>plans;
 
     @OneToMany(mappedBy = "author",cascade = CascadeType.ALL)
@@ -72,10 +77,8 @@ public class User extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "author")
     private List<PaymentCode>paymentCodes;
 
-    @OneToOne(mappedBy = "author")
+    @OneToOne(mappedBy = "author",cascade = CascadeType.REMOVE)
     private Comment comment;
-
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -99,6 +102,8 @@ public class User extends BaseEntity implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return this.isEnabled;
     }
+
+
 }

@@ -62,8 +62,10 @@ public class Plan extends BaseEntity {
     @OneToMany(mappedBy = "plan",cascade = CascadeType.REMOVE)
     private List<PaymentCode> paymentCodes;
 
+
+
     @ManyToOne
-    @JoinColumn(name = "creator_id", referencedColumnName = "id")
+    @JoinColumn(name = "creator_id", referencedColumnName = "id",nullable = true)
     private User author;
 
     @ManyToMany(fetch = FetchType.LAZY)

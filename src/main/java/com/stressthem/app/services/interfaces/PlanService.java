@@ -19,5 +19,7 @@ public interface PlanService {
 
     void saveMethodForPlans(List<String>plans,MethodServiceModel methodServiceModel);
 
+    List<PlanServiceModel>findAllPlansByAuthorId(String authorId);
+
 
 }

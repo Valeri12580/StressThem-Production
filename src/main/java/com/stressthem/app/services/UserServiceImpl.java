@@ -1,12 +1,12 @@
 package com.stressthem.app.services;
 
-import com.stressthem.app.domain.entities.Plan;
-import com.stressthem.app.domain.entities.Role;
-import com.stressthem.app.domain.entities.User;
-import com.stressthem.app.domain.entities.UserActivePlan;
+import com.stressthem.app.domain.entities.*;
 import com.stressthem.app.domain.models.service.UserActivePlanServiceModel;
 import com.stressthem.app.domain.models.service.UserServiceModel;
 import com.stressthem.app.exceptions.*;
+import com.stressthem.app.repositories.PaymentCodeRepository;
+import com.stressthem.app.repositories.PlanRepository;
+import com.stressthem.app.repositories.TransactionRepository;
 import com.stressthem.app.repositories.UserRepository;
 import com.stressthem.app.services.interfaces.*;
 import org.modelmapper.ModelMapper;
@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -36,9 +37,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private UserActivePlanService userActivePlanService;
     private ConfirmationService confirmationService;
     private PaymentService paymentService;
+    private PlanRepository planRepository;
+    private PaymentCodeRepository paymentCodeRepository;
+    private TransactionRepository transactionRepository;
 
     @Autowired
-    public UserServiceImpl(RoleService roleService, @Lazy PlanService planService, UserRepository userRepository, TransactionService transactionService, CryptocurrencyService cryptocurrencyService, ModelMapper modelMapper, PasswordEncoder passwordEncoder, UserActivePlanService userActivePlanService, ConfirmationService confirmationService, @Lazy PaymentService paymentService) {
+    public UserServiceImpl(RoleService roleService, @Lazy PlanService planService, UserRepository userRepository, TransactionService transactionService, CryptocurrencyService cryptocurrencyService, ModelMapper modelMapper, PasswordEncoder passwordEncoder, UserActivePlanService userActivePlanService, ConfirmationService confirmationService, @Lazy PaymentService paymentService, PlanRepository planRepository, PaymentCodeRepository paymentCodeRepository, TransactionRepository transactionRepository) {
         this.roleService = roleService;
         this.planService = planService;
         this.userRepository = userRepository;
@@ -49,6 +53,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.userActivePlanService = userActivePlanService;
         this.confirmationService = confirmationService;
         this.paymentService = paymentService;
+        this.planRepository = planRepository;
+        this.paymentCodeRepository = paymentCodeRepository;
+        this.transactionRepository = transactionRepository;
     }
 
     @Override
@@ -103,11 +110,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return this.modelMapper.map(user, UserServiceModel.class);
     }
 
-    @Override
-    public long getUsersCount() {
 
-        return this.userRepository.count();
-    }
 
     @Override
     public boolean hasUserActivePlan(String username) {
@@ -216,20 +219,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void deleteUserById(String id) {
-        this.userRepository.deleteById(id);
+    public void disableUser(String username) {
+        User user = userRepository.findUserByUsername(username).get();
+        user.setEnabled(false);
+
+        this.userRepository.save(user);
     }
 
-    @Override
-    public void deleteUserByUsername(String username, String currentName) {
-        String id = this.userRepository.findUserByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found")).getId();
-        if (username.equals(currentName)) {
-            throw new UserDeletionException("You cant delete yourself");
-        }
-        userRepository.deleteById(id);
 
-    }
+
+
+
 
     @Override
     public UserServiceModel getUserByUsername(String username) {
@@ -240,7 +240,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return this.userRepository.findUserByUsername(s).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        User user = this.userRepository.findUserByUsername(s).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return user;
     }
 
 

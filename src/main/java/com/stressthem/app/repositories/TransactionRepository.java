@@ -15,4 +15,7 @@ public interface TransactionRepository extends JpaRepository<Transaction,String>
 
     @Query("SELECT t from Transaction  t where  t.user.username=:username")
     Optional<List<Transaction>> getTransactionByUsername(@Param("username")String username);
+
+
+    List<Transaction> findAllByUser_Id(String id);
 }

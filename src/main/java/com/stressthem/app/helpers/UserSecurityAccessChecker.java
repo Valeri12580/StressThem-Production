@@ -7,10 +7,12 @@ import org.springframework.stereotype.Component;
 @Component("userSecurityAccessChecker")
 public class UserSecurityAccessChecker {
 
-    public boolean canAccess(Authentication authentication, String userId) {
+    public boolean canAccessByUsername(Authentication authentication, String username) {
 
-        String username = authentication.getName();
+        String currentUser = authentication.getName();
 
-        return username.equals(userId);
+        return currentUser.equals(username);
     }
+
+
 }

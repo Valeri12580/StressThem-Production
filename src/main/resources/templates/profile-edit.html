@@ -155,13 +155,13 @@
                 <hr>
                 <div class="form-row">
                     <div class="col-md-12 content-right">
-                        <button type="submit" class="btn btn    -light btn btn-primary rounded-pill"
+                        <button type="submit" class="btn btn-light btn btn-primary rounded-pil"
 
                                 style="padding-right: 35px;padding-left: 35px;">Save
                             changes
                         </button>
                         <a class="btn btn-light btn btn-primary rounded-pill" role="button"
-                           th:href="@{/users/profile/delete/{id}(id=*{id})}"
+                           th:href="@{/users/profile{username}/delete(username=*{username})}"
                            style="margin-right: 35px;">Delete profile</a>
                     </div>
                 </div>

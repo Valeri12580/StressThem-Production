@@ -16,7 +16,7 @@ public interface UserService {
     UserServiceModel getUserByUsername(String username);
     UserServiceModel getUserByEmail(String email);
 
-    long getUsersCount();
+
 
     boolean hasUserActivePlan(String username);
 
@@ -30,9 +30,9 @@ public interface UserService {
 
     List<UserServiceModel>getAllUsers();
 
-    void deleteUserById(String id);
+    void disableUser(String username);
 
-    void deleteUserByUsername(String username,String currentName);
+
 
     void validateUsers(String username, UserServiceModel modified);
 

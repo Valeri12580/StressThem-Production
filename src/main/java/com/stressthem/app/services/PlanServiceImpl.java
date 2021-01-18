@@ -89,4 +89,11 @@ public class PlanServiceImpl implements PlanService {
         this.planRepository.saveAll(List.of(this.modelMapper.map(plansServiceModel,Plan[].class)));
 
     }
+
+    @Override
+    public List<PlanServiceModel> findAllPlansByAuthorId(String authorId) {
+
+
+        return List.of(this.modelMapper.map(this.planRepository.findAllByAuthor_Id(authorId),PlanServiceModel[].class));
+    }
 }

@@ -100,7 +100,7 @@ public class UserController {
 
 
     @PageTitle("Profile")
-    @PreAuthorize("@userSecurityAccessChecker.canAccess(authentication,#username)")
+    @PreAuthorize("@userSecurityAccessChecker.canAccessByUsername(authentication,#username)")
     @GetMapping("/profile/{username}")
     public String profileEdit(@PathVariable String username, Model model) {
         ProfileEditViewModel profile = this.modelMapper.map(this.userService.getUserByUsername(username), ProfileEditViewModel.class);
@@ -137,11 +137,11 @@ public class UserController {
 
 
 
-    @PreAuthorize("@userSecurityAccessChecker.canAccess(authentication,#id)")
-    @GetMapping("/profile/delete/{id}")
-    public String deleteProfile(@PathVariable String id, HttpSession session) {
+    @PreAuthorize("@userSecurityAccessChecker.canAccessByUsername(authentication,#username)")
+    @GetMapping("/profile{username}/delete")
+    public String deleteProfile(@PathVariable String username, HttpSession session) {
 
-        this.userService.deleteUserById(id);
+        this.userService.disableUser(username);
         session.invalidate();
 
         return "redirect:/index";
