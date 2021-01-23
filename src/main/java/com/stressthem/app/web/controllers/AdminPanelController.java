@@ -271,5 +271,13 @@ public class AdminPanelController {
         return "admin-panel-remove-method";
     }
 
+    @PostMapping("/remove-method")
+    public String postRemoveMethod(@ModelAttribute MethodRemoveBindingModel methodRemoveBindingModel){
+
+       this.planService.removeMethodsFromPlan(methodRemoveBindingModel.getPlanName(), methodRemoveBindingModel.getMethods());
+        return "redirect:/admin/remove-method";
+    }
+
+
 
 }

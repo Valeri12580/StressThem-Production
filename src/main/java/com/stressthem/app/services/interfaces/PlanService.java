@@ -21,5 +21,7 @@ public interface PlanService {
 
     List<PlanServiceModel>findAllPlansByAuthorId(String authorId);
 
+    void removeMethodsFromPlan(String planName,List<String>methods);
+
 
 }

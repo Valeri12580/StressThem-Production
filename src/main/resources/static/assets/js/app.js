@@ -10,15 +10,23 @@ VANTA.NET({
 
 
 $(function () {
-   $("#planSelection").trigger('change');
+    $("#planSelection").trigger('change');
 })
 
 $("#planSelection").change(function (e) {
 
-    let value = $( "#planSelection option:selected" ).text();
+    let value = $("#planSelection option:selected").text();
     console.log(value)
-    fetch("http://localhost:80/methods",{method:'post',body:JSON.stringify({plan:value})})
-        .then(e=>e.json()).then(e=>console.log(e))
+    fetch("http://localhost:80/methods", {method: 'post', body: JSON.stringify({plan: value})})
+        .then(e => e.json()).then(e =>{
+       $("#method-remove-div").show();
+       e.forEach(e=>{
+           $("#methodsRemove").append($("<option>",{
+                text:e,
+                value:e
+           }))
+       })
+    });
 })
 
 
@@ -36,6 +44,7 @@ $("#sendVerificationCodeBtn").click(function () {
                 $("#inputCodeDiv").show()
             }
         })
+
 })
 
 $("#submitVerificationCode").click(function () {

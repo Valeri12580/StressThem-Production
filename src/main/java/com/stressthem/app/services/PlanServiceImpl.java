@@ -1,5 +1,6 @@
 package com.stressthem.app.services;
 
+import com.stressthem.app.domain.entities.Method;
 import com.stressthem.app.domain.entities.Plan;
 import com.stressthem.app.domain.models.service.MethodServiceModel;
 import com.stressthem.app.domain.models.service.PlanServiceModel;
@@ -13,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -96,4 +98,13 @@ public class PlanServiceImpl implements PlanService {
 
         return List.of(this.modelMapper.map(this.planRepository.findAllByAuthor_Id(authorId),PlanServiceModel[].class));
     }
+
+    @Override
+    public void removeMethodsFromPlan(String planName, List<String> methods) {
+        Plan plan=this.planRepository.findByType(planName).get();
+        List<Method>methodsEntity=methods.stream().map(m->this.modelMapper.map(this.methodService.findMethodByName(m), Method.class)).collect(Collectors.toList());
+        methodsEntity.forEach(e->plan.getMethods().remove(e));
+
+        planRepository.save(plan);
+        }
 }

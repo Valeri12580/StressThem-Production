@@ -14,6 +14,7 @@ import java.util.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class Method extends BaseEntity {
 
     @Column
@@ -24,5 +25,16 @@ public class Method extends BaseEntity {
     @ManyToMany(mappedBy = "methods")
     private List<Plan>plans;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Method)) return false;
+        Method method = (Method) o;
+        return name.equals(method.name);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
 }
