@@ -2,9 +2,12 @@ package com.stressthem.app.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 
 @Configuration
-@PropertySource("classpath:machine-config.properties")
-@PropertySource("classpath:mail-config.properties")
+@PropertySources({
+        @PropertySource("classpath:machine-config.properties"),
+        @PropertySource("classpath:mail-config.properties")
+})
 public class PropertySourceConfiguration {
 }

@@ -11,28 +11,28 @@
     </nav>
     <div class="container contact-form" >
 
-            <div style="margin: 0 auto">
+            <div style="display: block;text-align: center;margin-bottom: -60spx;">
                 <i class="fas fa-envelope"></i>
             </div>
 
-        <form method="post">
+        <form th:method="post" th:action="@{/contact}">
             <h3>Drop Us a Message</h3>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <input type="text" name="txtName" class="border rounded form-control" placeholder="Your Name *" value="" />
+                        <input type="text" minlength="1" name="name" class="border rounded form-control" placeholder="Your Name *" value="" />
                     </div>
                     <div class="form-group">
-                        <input type="text" name="txtEmail" class="border rounded form-control" placeholder="Your Email *" value="" />
+                        <input type="email" name="email" class="border rounded form-control" placeholder="Your Email *" value="" />
                     </div>
 
                     <div class="form-group">
-                        <input type="submit" name="btnSubmit" class="rounded-pill btn btn-primary"  value="Send Message" />
+                        <input type="submit" name="btnSubmit" class="rounded-pill btn btn-primary" />
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <textarea name="txtMsg" class="form-control border rounded" placeholder="Your Message *" style="width: 100%; height: 150px;"></textarea>
+                        <textarea name="message" minlength="10" class="form-control border rounded" placeholder="Your Message *" style="width: 100%; height: 150px;"></textarea>
                     </div>
                 </div>
             </div>
