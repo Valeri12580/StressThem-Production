@@ -21,7 +21,7 @@ public class TitleInterceptor extends HandlerInterceptorAdapter {
             if(handler instanceof HandlerMethod){
                 PageTitle pageTitle=((HandlerMethod)handler).getMethodAnnotation(PageTitle.class);
                 if(pageTitle!=null){
-                    modelAndView.addObject("title",String.format("%s - StressThem",pageTitle.value()));
+                    modelAndView.addObject("title",String.format("%s - Reqest.wtf",pageTitle.value()));
                 }
             }
         }

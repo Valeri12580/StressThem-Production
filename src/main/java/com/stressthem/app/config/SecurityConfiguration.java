@@ -16,8 +16,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .antMatchers("/users/login", "/users/register", "/index","/")
                 .anonymous()
-                .antMatchers("/admin/**","/plans/delete/**","/currencies/delete/**","/articles/delete/**","/about/comments/delete/**").hasAnyAuthority("ADMIN", "ROOT")
-                .antMatchers("/plans", "/articles", "/faq", "/contact", "/currencies").permitAll()
+                .antMatchers("/admin/**","/plans/delete/**","/currencies/delete/**","/articles/delete/**","/about/comments/delete/**","/support/tickets").hasAnyAuthority("ADMIN", "ROOT")
+
+                .antMatchers("/plans", "/articles", "/faq", "/contact", "/currencies","/support/contact").permitAll()
                 .antMatchers("/home/**","/users/profile/*","/about/comments/create")
                 .authenticated()
                 .antMatchers("/plans/**").hasAnyAuthority("USER")

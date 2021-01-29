@@ -21,5 +21,6 @@ public class BaseEntity {
                 name = "uuid-string",
                 strategy = "org.hibernate.id.UUIDGenerator"
         )
+
     private String id;
 }
