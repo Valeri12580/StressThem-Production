@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/head}">
+
+</head>
+<body>
+<nav class="navbar navbar-light navbar-expand-md navigation-clean-button" th:insert="~{fragments/nav}">
+
+</nav>
+
+<div class="container">
+    <div class="intro mt-3">
+        <h2 class="text-center">Support tickets</h2>
+    </div>
+
+    <form method="get">
+        <nav class="support-page-pagination" aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="1">1</a></li>
+                <li class="page-item"><a class="page-link" href="2">2</a></li>
+                <li class="page-item"><a class="page-link" href="3">3</a></li>
+                <li class="page-item"><a class="page-link" href="3">Next</a></li>
+            </ul>
+        </nav>
+    </form>
+
+
+
+
+    <div class="row support-ticket header">
+        <div class="col-md-1">
+            <p>Status</p>
+        </div>
+        <div class="col-md-3">
+            <p>Subject</p>
+        </div>
+        <div class="col-md-3">
+            <p>Author</p>
+        </div>
+        <div class="col-md-3">
+            <p>Date</p>
+        </div>
+        <div class="col-md-2 text-center">
+            <p>Change status</p>
+        </div>
+
+
+    </div>
+
+    <div class="row support-ticket  mt-1">
+        <div class="col-md-1 solved" >
+
+        </div>
+        <div class="col-md-3">
+            <p>I have problem with the payment options....</p>
+        </div>
+        <div class="col-md-3">
+            <p>Valeri</p>
+        </div>
+        <div class="col-md-3">
+            <p>25 aug</p>
+        </div>
+        <div class="col-md-2">
+           <div class="status-buttons">
+               <button><i class="fas fa-check"></i></button>
+               <button>
+                   <i class="fas fa-arrow-circle-right"></i>
+               </button>
+               <button><i class="fas fa-times"></i></button>
+
+           </div>
+        </div>
+    </div>
+
+    <div class="row support-ticket  mt-1">
+        <div class="col-md-1 unsolved">
+
+        </div>
+        <div class="col-md-3">
+            <p>I have problem with my life , please kill me if  :(((</p>
+        </div>
+        <div class="col-md-3">
+            <p>Anonymous</p>
+        </div>
+        <div class="col-md-3">
+            <p>25 aug 2020/p>
+        </div>
+        <div class="col-md-2">
+            <div class="status-buttons">
+                <button><i class="fas fa-check"></i></button>
+                <button>
+                    <i class="fas fa-arrow-circle-right"></i>
+                </button>
+                <button><i class="fas fa-times"></i></button>
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<div class="footer-basic">
+    <footer th:insert="~{fragments/footer}">
+
+    </footer>
+</div>
+<th:block th:insert="~{fragments/scripts}">
+
+</th:block>
+
+
+</body>
+</html>

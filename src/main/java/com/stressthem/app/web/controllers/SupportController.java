@@ -47,10 +47,10 @@ public class SupportController {
         return "redirect:/support/contact";
     }
 
-    @ResponseBody
+
     @GetMapping("/tickets")
     public String tickets(){
 
-        return "<h1>Test</h1>";
+        return "tickets-support";
     }
 }

@@ -1452,6 +1452,73 @@
 /*}*/
 
 
+/*support page*/
+.support-page-pagination{
+  width: 23%;
+  margin: 40px auto;
+}
+
+.row.support-ticket.header{
+  background-color: #E6E6E6;
+  font-weight: bold;
+  font-size: 21px;
+  padding: 8px;
+}
+
+.row.support-ticket{
+  padding: 10px;
+}
+
+.row.support-ticket > .solved{
+  background: linear-gradient(90deg, rgba(6,157,64,1) 28%, rgba(130,184,148,1) 98%);
+}
+
+.row.support-ticket > .unsolved{
+
+  background: linear-gradient(90deg, rgba(153,25,25,1) 35%, rgba(204,127,127,1) 100%);
+
+}
+
+.row.support-ticket p{
+  margin: 0;
+}
+
+
+
+.row.support-ticket button{
+  border: none;
+  background-color: white;
+}
+
+
+
+
+.row.support-ticket i.fas {
+  font-size: 20px;
+}
+
+.row.support-ticket i.fas.fa-check{
+  color: green;
+}
+
+.row.support-ticket i.fas.fa-arrow-circle-right{
+  color:rgb(79, 134, 195);
+
+}
+.row.support-ticket i.fas.fa-times{
+  color: red;
+}
+
+.row.support-ticket .status-buttons{
+  display: flex;
+  justify-content: space-between;
+
+  margin: 0 auto;
+}
+
+
+
+
 
   
                               
