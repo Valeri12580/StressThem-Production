@@ -61,15 +61,15 @@
         </div>
         <div class="col-md-2">
             <div class="status-buttons">
-                <а th:href="@{change-status/{id}(id=${ticket.id})/solved}">
+                <a th:href="@{/support/tickets/change-status/{id}/solved(id=${ticket.id})}">
                     <i class="fas fa-check"></i>
-                </а>
-                <а>
+                </a>
+                <a>
                     <i class="fas fa-arrow-circle-right"></i>
-                </а>
-                <а th:href="@{change-status/{id}(id=${ticket.id})/unsolved}">
+                </a>
+                <a th:href="@{/support/tickets/change-status/{id}/unsolved(id=${ticket.id})}">
                     <i class="fas fa-times"></i>
-                </а>
+                </a>
 
             </div>
         </div>
