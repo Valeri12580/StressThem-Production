@@ -13,18 +13,17 @@
         <h2 class="text-center">Support tickets</h2>
     </div>
 
-        <nav class="support-page-pagination" aria-label="Page navigation example">
-            <ul class="pagination">
-<!--                <li class="page-item"><a class="page-link" href="#">Previous</a></li>-->
-                <li class="page-item" th:each="pageN:${#numbers.sequence(1,totalPages)}" th:classappend="${param.pageN eq #strings.toString(pageN)?'active':''}">
-                    <a class="page-link" th:href="@{/support/tickets(pageN=${pageN})}" th:text="${pageN}"></a>
-                </li>
+    <nav class="support-page-pagination" aria-label="Page navigation example">
+        <ul class="pagination">
+            <!--                <li class="page-item"><a class="page-link" href="#">Previous</a></li>-->
+            <li class="page-item" th:each="pageN:${#numbers.sequence(1,totalPages)}"
+                th:classappend="${param.pageN eq #strings.toString(pageN)?'active':''}">
+                <a class="page-link" th:href="@{/support/tickets(pageN=${pageN})}" th:text="${pageN}"></a>
+            </li>
 
-<!--                <li class="page-item"><a class="page-link" href="3">Next</a></li>-->
-            </ul>
-        </nav>
-
-
+            <!--                <li class="page-item"><a class="page-link" href="3">Next</a></li>-->
+        </ul>
+    </nav>
 
 
     <div class="row support-ticket header">
@@ -48,7 +47,7 @@
     </div>
 
     <div class="row support-ticket  mt-1" th:each="ticket:${tickets}">
-        <div class="col-md-1"  th:classappend="${ticket.resolved eq true ? 'solved':'unsolved'}">
+        <div class="col-md-1" th:classappend="${ticket.resolved eq true ? 'solved':'unsolved'}">
 
         </div>
         <div class="col-md-3">
@@ -61,14 +60,18 @@
             <p th:text="${#temporals.format(ticket.createdOn,'dd-MM-yyyy HH:mm:ss')}"></p>
         </div>
         <div class="col-md-2">
-           <div class="status-buttons">
-               <button><i class="fas fa-check"></i></button>
-               <button>
-                   <i class="fas fa-arrow-circle-right"></i>
-               </button>
-               <button><i class="fas fa-times"></i></button>
+            <div class="status-buttons">
+                <а th:href="@{change-status/{id}(id=${ticket.id})/solved}">
+                    <i class="fas fa-check"></i>
+                </а>
+                <а>
+                    <i class="fas fa-arrow-circle-right"></i>
+                </а>
+                <а th:href="@{change-status/{id}(id=${ticket.id})/unsolved}">
+                    <i class="fas fa-times"></i>
+                </а>
 
-           </div>
+            </div>
         </div>
     </div>
 

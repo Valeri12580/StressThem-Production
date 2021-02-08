@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class TicketViewModel {
-
+public class TicketViewModel{
+    private String id;
     private String subject;
     private LocalDateTime createdOn;
     private boolean isResolved;

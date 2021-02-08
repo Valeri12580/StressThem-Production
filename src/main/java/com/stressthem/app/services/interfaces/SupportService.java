@@ -13,4 +13,7 @@ public interface SupportService {
     List<TicketServiceModel> findAllTickets();
 
     Page<Ticket> findAllTickets(int pageNumber, String filterBy);
+
+    void changeTicketStatus(String id, boolean status);
+
 }

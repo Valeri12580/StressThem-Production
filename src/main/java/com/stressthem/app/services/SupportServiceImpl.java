@@ -47,4 +47,11 @@ public class SupportServiceImpl implements SupportService {
         return this.ticketRepository.findAll(paging);
 
     }
+
+    @Override
+    public void changeTicketStatus(String id, boolean status) {
+        Ticket ticket = this.ticketRepository.findById(id).get();
+        ticket.setResolved(status);
+        ticketRepository.save(ticket);
+    }
 }
