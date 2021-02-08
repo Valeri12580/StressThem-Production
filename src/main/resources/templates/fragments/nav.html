@@ -38,7 +38,7 @@
                            th:href="@{/admin/user-roles}">Admin Panel</a>
 
                         <a sec:authorize="hasAnyAuthority('ROOT','ADMIN')" class="dropdown-item" role="presentation"
-                           th:href="@{/support/tickets}">Support Panel</a>
+                           th:href="@{/support/tickets(pageN=1)}">Support Panel</a>
 
                     </div>
                 </div>

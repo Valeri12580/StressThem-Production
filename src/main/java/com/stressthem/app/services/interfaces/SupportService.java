@@ -12,5 +12,5 @@ public interface SupportService {
 
     List<TicketServiceModel> findAllTickets();
 
-    Page<Ticket> findAllTickets(int pageNumber, int pageSize, String filterBy);
+    Page<Ticket> findAllTickets(int pageNumber, String filterBy);
 }

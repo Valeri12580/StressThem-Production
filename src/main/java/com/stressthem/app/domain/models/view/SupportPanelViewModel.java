@@ -11,5 +11,5 @@ import java.util.*;
 public class SupportPanelViewModel {
 
     private List<TicketViewModel>tickets;
-    private int pageN;
+
 }

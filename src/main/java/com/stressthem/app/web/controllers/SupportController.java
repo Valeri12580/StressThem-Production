@@ -3,6 +3,8 @@ package com.stressthem.app.web.controllers;
 import com.stressthem.app.domain.entities.Ticket;
 import com.stressthem.app.domain.models.binding.TicketBindingModel;
 import com.stressthem.app.domain.models.service.TicketServiceModel;
+import com.stressthem.app.domain.models.view.SupportPanelViewModel;
+import com.stressthem.app.domain.models.view.TicketViewModel;
 import com.stressthem.app.services.interfaces.SupportService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,7 @@ import javax.validation.Valid;
 @RequestMapping(value = "/support")
 public class SupportController {
 
-    private static final int pageSize = 10;
+
 
     private SupportService supportService;
     private ModelMapper modelMapper;
@@ -47,21 +49,22 @@ public class SupportController {
             redirectAttributes.addFlashAttribute("ticket", ticketBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.ticket", bindingResult);
         } else {
-            for (int i = 0; i < 30; i++) {
+
                 this.supportService.saveTicket(this.modelMapper.map(ticketBindingModel, TicketServiceModel.class));
-            }
+
         }
         return "redirect:/support/contact";
     }
 
 
     @GetMapping("/tickets")
-    public String tickets(@RequestParam("pageN") int pageNumber, @RequestParam(value = "filter", required = false) String filterBy) {
+    public String tickets(@RequestParam("pageN") int pageNumber, @RequestParam(value = "filter", required = false) String filterBy,
+                          Model model) {
 
-        Page<Ticket> allTickets = this.supportService.findAllTickets(1, SupportController.pageSize, filterBy);
-
-
-        int number = allTickets.getNumber();
+        pageNumber--;
+        Page<Ticket> allTickets = this.supportService.findAllTickets(pageNumber, filterBy);
+        model.addAttribute("totalPages",allTickets.getTotalPages());
+        model.addAttribute("tickets",this.modelMapper.map(allTickets.getContent(), TicketViewModel[].class));
 
         return "tickets-support";
     }

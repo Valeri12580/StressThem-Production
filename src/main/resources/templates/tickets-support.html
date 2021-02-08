@@ -13,17 +13,16 @@
         <h2 class="text-center">Support tickets</h2>
     </div>
 
-    <form method="get">
         <nav class="support-page-pagination" aria-label="Page navigation example">
             <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="1">1</a></li>
-                <li class="page-item"><a class="page-link" href="2">2</a></li>
-                <li class="page-item"><a class="page-link" href="3">3</a></li>
-                <li class="page-item"><a class="page-link" href="3">Next</a></li>
+<!--                <li class="page-item"><a class="page-link" href="#">Previous</a></li>-->
+                <li class="page-item" th:each="pageN:${#numbers.sequence(1,totalPages)}" th:classappend="${param.pageN eq #strings.toString(pageN)?'active':''}">
+                    <a class="page-link" th:href="@{/support/tickets(pageN=${pageN})}" th:text="${pageN}"></a>
+                </li>
+
+<!--                <li class="page-item"><a class="page-link" href="3">Next</a></li>-->
             </ul>
         </nav>
-    </form>
 
 
 
@@ -48,18 +47,18 @@
 
     </div>
 
-    <div class="row support-ticket  mt-1">
-        <div class="col-md-1 solved" >
+    <div class="row support-ticket  mt-1" th:each="ticket:${tickets}">
+        <div class="col-md-1"  th:classappend="${ticket.resolved eq true ? 'solved':'unsolved'}">
 
         </div>
         <div class="col-md-3">
-            <p>I have problem with the payment options....</p>
+            <p th:text="${ticket.subject}"></p>
         </div>
         <div class="col-md-3">
-            <p>Vale@asdsad,bgri</p>
+            <p th:text="${ticket.email}"></p>
         </div>
         <div class="col-md-3">
-            <p>25 aug</p>
+            <p th:text="${#temporals.format(ticket.createdOn,'dd-MM-yyyy HH:mm:ss')}"></p>
         </div>
         <div class="col-md-2">
            <div class="status-buttons">
@@ -71,33 +70,6 @@
 
            </div>
         </div>
-    </div>
-
-    <div class="row support-ticket  mt-1">
-        <div class="col-md-1 unsolved">
-
-        </div>
-        <div class="col-md-3">
-            <p>Ixzcxzcz :(((</p>
-        </div>
-        <div class="col-md-3">
-            <p>Anonymou2abv.bgs</p>
-        </div>
-        <div class="col-md-3">
-            <p>25 aug 2020/p>
-        </div>
-        <div class="col-md-2">
-            <div class="status-buttons">
-                <button><i class="fas fa-check"></i></button>
-                <button>
-                    <i class="fas fa-arrow-circle-right"></i>
-                </button>
-                <button><i class="fas fa-times"></i></button>
-
-            </div>
-        </div>
-
-
     </div>
 
 

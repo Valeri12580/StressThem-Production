@@ -33,5 +33,5 @@ public class Ticket extends BaseEntity{
     private boolean isResolved;
 
     @Column
-    private LocalDateTime localDateTime;
+    private LocalDateTime createdOn;
 }

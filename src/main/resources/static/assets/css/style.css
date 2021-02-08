@@ -1453,8 +1453,12 @@
 
 
 /*support page*/
+ul.pagination{
+  flex-wrap: wrap;
+}
+
 .support-page-pagination{
-  width: 23%;
+  width: 36%;
   margin: 40px auto;
 }
 

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class TicketViewModel {
 
     private String subject;
-    private LocalDateTime localDateTime;
+    private LocalDateTime createdOn;
     private boolean isResolved;
     private String email;
 
