@@ -13,9 +13,9 @@ public class FaviconInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        String location="";
-        if(modelAndView!=null){
-            modelAndView.addObject("favicon","\\assets\\img\\favicon.png");
-        }
+//        String location="";
+//        if(modelAndView!=null){
+//            modelAndView.addObject("favicon","\\assets\\img\\favicon.png");
+//        }
     }
 }
