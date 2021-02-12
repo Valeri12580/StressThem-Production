@@ -21,11 +21,12 @@
   
   .article-clean .intro p {
     color: #929292;
-    font-size: 12px;
+    font-size: 14px;
   }
   
   .article-clean .intro p .by {
     font-style: italic;
+
   }
   
   .article-clean .intro p .date {

@@ -17,8 +17,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Ticket extends BaseEntity{
 
-
-
     @Column
     @NotNull
     private String email;

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/head}">
+
+</head>
+<body>
+<nav class="navbar navbar-light navbar-expand-md navigation-clean-button" th:insert="~{fragments/nav}">
+
+</nav>
+<div class="article-clean">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-xl-8 offset-lg-1 offset-xl-2">
+                <div class="intro">
+                    <h1 class="text-center" th:text="${ticket.subject}"></h1>
+                    <p class="text-center">
+                        <span class="by">Opened at</span>
+                        <span class="date"
+                              th:text="${#temporals.format(ticket.createdOn, 'dd-MM-yyyy HH:mm:ss')}">
+                        </span>
+                    </p>
+                    <p class="text-center">
+                        <span class="by">Status</span>
+                        <span class="date"
+                              th:text="${ticket.isResolved() == true ? 'SOLVED' : 'UNSOLVED'}">
+                        </span>
+                    </p>
+                </div>
+                <div class="text">
+                    <p th:text="${ticket.message}"></p>
+                </div>
+
+               <div class="row support-ticket mt-5">
+                   <div class="status-buttons" style="display: flex;justify-content: space-around;width: 30%;margin: 0 auto">
+                       <a th:href="@{/support/tickets/change-status/{id}/solved(id=${ticket.id})}">
+                           <i class="fas fa-check"></i>
+                       </a>
+                       <a th:href="@{/support/tickets/change-status/{id}/unsolved(id=${ticket.id})}">
+                           <i class="fas fa-times"></i>
+                       </a>
+
+                   </div>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer-basic">
+    <footer th:insert="~{fragments/footer}">
+
+    </footer>
+</div>
+<th:block th:insert="~{fragments/scripts}">
+
+</th:block>
+</body>
+</html>

@@ -2,6 +2,7 @@ package com.stressthem.app.services;
 
 import com.stressthem.app.domain.entities.Ticket;
 import com.stressthem.app.domain.models.service.TicketServiceModel;
+import com.stressthem.app.exceptions.TicketNotFoundException;
 import com.stressthem.app.repositories.TicketRepository;
 import com.stressthem.app.services.interfaces.SupportService;
 import org.modelmapper.ModelMapper;
@@ -48,10 +49,18 @@ public class SupportServiceImpl implements SupportService {
 
     }
 
+
+
     @Override
     public void changeTicketStatus(String id, boolean status) {
         Ticket ticket = this.ticketRepository.findById(id).get();
         ticket.setResolved(status);
         ticketRepository.save(ticket);
+    }
+
+    @Override
+    public TicketServiceModel getTicketById(String id) {
+        Ticket ticket = this.ticketRepository.findById(id).orElseThrow(() -> new TicketNotFoundException("Ticket not found"));
+        return this.mapper.map(ticket,TicketServiceModel.class);
     }
 }

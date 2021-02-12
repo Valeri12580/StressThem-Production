@@ -15,7 +15,7 @@ public class TicketServiceModel extends BaseServiceModel {
     private String subject;
     private String message;
     private boolean isResolved;
-    private LocalDateTime localDateTime;
+    private LocalDateTime createdOn;
 
 
 }

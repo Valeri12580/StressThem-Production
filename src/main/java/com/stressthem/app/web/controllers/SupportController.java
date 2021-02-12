@@ -72,4 +72,13 @@ public class SupportController {
 
         return "redirect:/support/tickets?pageN=1";
     }
+
+    @GetMapping("/tickets/{id}")
+    public String ticketInformation(@PathVariable String id,Model model){
+        TicketServiceModel ticketById = this.supportService.getTicketById(id);
+
+        model.addAttribute("ticket",this.modelMapper.map(ticketById,TicketViewModel.class));
+
+        return "ticket-info";
+    }
 }

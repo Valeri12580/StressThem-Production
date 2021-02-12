@@ -16,4 +16,8 @@ public interface SupportService {
 
     void changeTicketStatus(String id, boolean status);
 
+    TicketServiceModel getTicketById(String id);
+
+
+
 }
