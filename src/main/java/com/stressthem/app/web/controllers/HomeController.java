@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -62,7 +63,8 @@ public class HomeController {
 
     @PageTitle("Launch attack")
     @GetMapping("/launch")
-    public String launch(Model model, Authentication authentication) {
+    public String launch(Model model, Authentication authentication,HttpSession session) {
+       
         String userId = ((User) authentication.getPrincipal()).getId();
         String username = ((User) authentication.getPrincipal()).getUsername();
         if (username != null) {
