@@ -114,12 +114,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public boolean hasUserActivePlan(String username) {
-
         return this.userRepository.findUserByUsername(username).
                 orElseThrow(() -> new UsernameNotFoundException("User not found"))
                 .getUserActivePlan() != null;
     }
-
 
     @Override
     public int getUserAvailableAttacks(String username) {
@@ -158,10 +156,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void sendConfirmationEmail(String username) {
         String email = userRepository.findUserByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found")).getEmail();
-
         String code = confirmationService.sendConfirmationEmail(email);
-
-
     }
 
     @Override
@@ -175,13 +170,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     private void modifyUser(UserServiceModel modified, User main) {
-
-
         main.setUsername(modified.getUsername());
         main.setEmail(modified.getEmail());
         main.setImageUrl(modified.getImageUrl());
         main.setPassword(passwordEncoder.encode(modified.getPassword()));
-
     }
 
     @Override
@@ -209,8 +201,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
 
         this.userRepository.save(user);
-
-
     }
 
     @Override
@@ -225,12 +215,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         this.userRepository.save(user);
     }
-
-
-
-
-
-
     @Override
     public UserServiceModel getUserByUsername(String username) {
         User user = this.userRepository.findUserByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User doesnt exist"));
@@ -243,6 +227,4 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         User user = this.userRepository.findUserByUsername(s).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return user;
     }
-
-
 }

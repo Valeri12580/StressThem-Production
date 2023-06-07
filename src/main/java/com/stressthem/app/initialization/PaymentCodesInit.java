@@ -29,7 +29,7 @@ public class PaymentCodesInit implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if(paymentCodeRepository.count()==0){
-            User user=this.userRepository.findUserByUsername("Pride").get();
+            User user=this.userRepository.findUserByUsername("Admin").get();
             Plan plan=this.planRepository.findByType("BASIC").get();
             PaymentCode paymentCodeOne=new PaymentCode("basictest1",plan,user,false);
             PaymentCode paymentCodeTwo=new PaymentCode("basictest2",plan,user,false);

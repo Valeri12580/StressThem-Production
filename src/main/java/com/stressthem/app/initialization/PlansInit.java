@@ -46,7 +46,7 @@ public class PlansInit implements CommandLineRunner {
             Plan planFive=new Plan("BOOSTED",new BigDecimal("70"),30,3500,999,7,LocalDateTime.now(ZoneId.systemDefault()),"DoxyAss-Jdtk3GDZcTaQ96Kgasdasdasd","https://shoppy.gg/product/2uYDrUS",methods);
             Plan planSix=new Plan("LIFETIME",new BigDecimal("170"),36500,3500,999,4,LocalDateTime.now(ZoneId.systemDefault()),"DoxyAss-EESTYR8QEg9EkGnYgFh5TGEe","https://shoppy.gg/product/W0o5HiM",methods);
 
-            User user=this.userRepository.findUserByUsername("Pride").get();
+            User user=this.userRepository.findUserByUsername("Admin").get();
             freePlan.setAuthor(user);
             plan.setAuthor(user);
             planTwo.setAuthor(user);

@@ -36,8 +36,8 @@ public class PaymentInitialization implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if (userActivePlanRepository.count() == 0) {
-           saveUser("Pride","LIFETIME");
-           saveUser("Google","LIFETIME");
+           saveUser("Admin","LIFETIME");
+           saveUser("user","LIFETIME");
            saveUser("Normal","FREE");
 
         }

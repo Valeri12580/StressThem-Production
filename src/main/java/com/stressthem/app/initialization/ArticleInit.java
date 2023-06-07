@@ -27,7 +27,7 @@ public class ArticleInit implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
       if(articleRepository.count()==0){
-          User user = this.userRepository.findUserByUsername("Pride").orElse(null);
+          User user = this.userRepository.findUserByUsername("Admin").orElse(null);
           Article articleOne = new Article("Our website is launched!", "Welcome to our website.Here you can find various services that will help you test your resources or something else ;)"
                   , user, LocalDateTime.now(ZoneId.systemDefault()), "https://images.idgesg.net/images/article/2020/05/server_racks_close-up_perspective_shot_by_monsitj_gettyimages-918951042_cso_nw_2400x1600-100841600-large.jpg");
 

@@ -31,6 +31,7 @@ public class ArticleController {
     @PageTitle("Articles")
     @GetMapping
     public String allArticles(Model model){
+        //   Arrays.asList(this.modelmapper.map(jobRepository.findALl(),JobViewModel[].class))                       List<Job>
         List<ArticleViewModel> articles = Arrays.asList(this.modelMapper.map(this.articleService.getAllArticles(), ArticleViewModel[].class));
         model.addAttribute("articles", articles);
 

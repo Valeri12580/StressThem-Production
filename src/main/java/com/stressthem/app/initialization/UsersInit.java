@@ -37,13 +37,13 @@ public class UsersInit implements CommandLineRunner {
 
         if (this.userRepository.count() == 0) {
 
-            User pride = new User("Pride", passwordEncoder.encode("h7r31331"), "pride@gmail.com",
+            User admin = new User("Admin", passwordEncoder.encode("1234"), "TestUser@gmail.com",
                     "https://i.ytimg.com/vi/WhIrvsbEJ6Q/maxresdefault.jpg",
                     LocalDateTime.now(ZoneId.systemDefault()), null,true,
                     new HashSet<>(this.roleService.getAllRoles().stream().filter(e -> !e.getName().equals("UNCONFIRMED")).collect(Collectors.toSet())),
                     null, null, null, null, null, null, null);
 
-            User google = new User("Google", passwordEncoder.encode("IhaveaTree123"), "google@gmail.com",
+            User user = new User("user", passwordEncoder.encode("1234"), "user@gmail.com",
                     "https://i.pinimg.com/564x/f8/a1/e9/f8a1e948ae5109629e4dd84c2ce1cf55.jpg",
                     LocalDateTime.now(ZoneId.systemDefault()), null,true,
                     new HashSet<>(this.roleService.getAllRoles().stream().filter(e -> !e.getName().equals("UNCONFIRMED")).collect(Collectors.toSet())),
@@ -53,7 +53,7 @@ public class UsersInit implements CommandLineRunner {
                     LocalDateTime.now(ZoneId.systemDefault()), null,true,
                     new HashSet<>(this.roleService.getAllRoles().stream().filter(e -> e.getName().equals("USER")).collect(Collectors.toSet())),
                     null, null, null, null, null, null, null);
-            userRepository.saveAll(List.of(pride, google, normal));
+            userRepository.saveAll(List.of(admin, user, normal));
 
         }
 

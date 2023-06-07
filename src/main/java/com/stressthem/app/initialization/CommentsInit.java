@@ -25,8 +25,8 @@ public class CommentsInit implements CommandLineRunner {
 
         if (commentRepository.count() == 0) {
 
-            Comment comment = new Comment(5, "The best stresser on the market with the cheapest prices...", userRepository.findUserByUsername("Pride").get());
-            Comment commentTwo = new Comment(4, "Bypasses cloudflare!!!", userRepository.findUserByUsername("Google").get());
+            Comment comment = new Comment(5, "The best stresser on the market with the cheapest prices...", userRepository.findUserByUsername("Admin").get());
+            Comment commentTwo = new Comment(4, "Bypasses cloudflare!!!", userRepository.findUserByUsername("user").get());
 
             commentRepository.saveAll(List.of(comment, commentTwo));
         }
